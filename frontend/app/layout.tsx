@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { LanguageProvider } from '@/context/LanguageContext'
+import MeshBackground from '@/components/ui/MeshBackground'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-gradient-main font-rubik">
         <LanguageProvider>
-          <div className="mesh-bg"></div>
+          <MeshBackground />
           {children}
         </LanguageProvider>
       </body>
