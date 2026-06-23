@@ -19,6 +19,11 @@ export default function ImageUploader({ productId, imageUrl, onUploaded }: Image
     const file = e.target.files?.[0]
     if (!file) return
 
+    if (file.size > 5 * 1024 * 1024) {
+      setError('הקובץ גדול מדי. מקסימום 5MB.')
+      return
+    }
+
     setUploading(true)
     setError('')
 
@@ -27,10 +32,10 @@ export default function ImageUploader({ productId, imageUrl, onUploaded }: Image
       if (res.success && res.data) {
         onUploaded(res.data.imageUrl)
       } else {
-        setError(res.error ?? 'Upload failed')
+        setError(res.error ?? 'העלאה נכשלה')
       }
     } catch {
-      setError('Upload failed')
+      setError('העלאה נכשלה')
     } finally {
       setUploading(false)
     }
@@ -65,6 +70,7 @@ export default function ImageUploader({ productId, imageUrl, onUploaded }: Image
       >
         {uploading ? 'מעלה...' : 'העלה תמונה'}
       </button>
+      <p className="text-on-surface-variant text-xs">תמונה בלבד · עד 5MB</p>
 
       {error && <p className="text-error text-sm" role="alert">{error}</p>}
     </div>
