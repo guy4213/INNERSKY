@@ -17,7 +17,6 @@ export default function Article() {
             {lang === 'he' ? 'מאמר' : 'Article'}
           </h2>
           <p className="font-body-lg text-body-md text-on-surface-variant">
-            {lang === 'he' ? 'תוכן בקרוב' : 'Coming soon'}
           </p>
         </GlassCard>
       </div>

@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(node -e \"const b = require\\('bcrypt'\\); b.hash\\('guy_722000', 10\\).then\\(console.log\\)\")",
+      "WebSearch",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }
