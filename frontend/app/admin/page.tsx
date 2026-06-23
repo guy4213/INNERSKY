@@ -71,12 +71,21 @@ export default function AdminPage() {
     <main className="min-h-screen py-12 px-6 max-w-[1440px] mx-auto">
       <div className="flex justify-between items-center mb-12">
         <h1 className="font-display-lg text-headline-md text-on-surface">ניהול InnerSky</h1>
-        <button
-          onClick={handleLogout}
-          className="border border-outline/30 text-on-surface px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-surface-variant transition-all"
-        >
-          התנתק
-        </button>
+        <div className="flex items-center gap-3">
+          <a
+            href="/"
+            className="flex items-center gap-1.5 border border-outline/30 text-on-surface-variant px-4 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-surface-variant transition-all"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>home</span>
+            דף הבית
+          </a>
+          <button
+            onClick={handleLogout}
+            className="border border-outline/30 text-on-surface px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-surface-variant transition-all"
+          >
+            התנתק
+          </button>
+        </div>
       </div>
 
       <div className="flex justify-between items-center mb-6">
