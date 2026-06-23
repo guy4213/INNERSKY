@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main role="main">
         <Hero />
         <About />
         <Challenge />

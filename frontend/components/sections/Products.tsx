@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import GlassCard from '@/components/ui/GlassCard'
@@ -49,10 +50,14 @@ export default function Products() {
 
                 return (
                   <GlassCard key={product.id}>
-                    <div className="w-full h-48 rounded-lg bg-surface-variant mb-6 overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full h-48 rounded-lg bg-surface-variant mb-6 overflow-hidden flex items-center justify-center">
                       {product.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={product.imageUrl} alt={name || 'product'} className="w-full h-full object-cover" />
+                        <Image
+                          src={product.imageUrl}
+                          alt={name || 'product'}
+                          fill
+                          className="object-cover"
+                        />
                       ) : (
                         <span className="material-symbols-outlined text-on-surface-variant" style={{ fontSize: '48px' }}>
                           image

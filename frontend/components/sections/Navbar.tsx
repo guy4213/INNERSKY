@@ -17,7 +17,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
+    <nav role="navigation" aria-label={lang === 'he' ? 'ניווט ראשי' : 'Main navigation'} className="fixed top-0 w-full z-50 border-b border-white/5 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]" style={{ minHeight: '80px' }}>
       <div className="flex justify-between items-center w-full px-6 md:px-10 h-20 max-w-[1440px] mx-auto">
         <div>
           <div className="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
@@ -43,6 +43,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <button
             onClick={toggle}
+            aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
             className="text-on-surface-variant font-label-sm text-label-sm font-bold uppercase border border-outline/30 rounded-full px-3 py-1 hover:text-primary hover:border-primary/40 transition-colors"
           >
             {lang === 'he' ? 'EN' : 'עב'}

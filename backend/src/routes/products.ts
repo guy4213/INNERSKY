@@ -1,5 +1,8 @@
 import { Router } from 'express'
 import { requireAuth } from '../middleware/auth'
+import { validate } from '../middleware/validate'
+import { uploadLimiter } from '../app'
+import { productUpdateSchema } from '../validators'
 import { prisma } from '../lib/db'
 import { upload, uploadImageBuffer } from './upload'
 
@@ -14,14 +17,14 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', requireAuth, async (req, res, next) => {
+router.put('/:id', requireAuth, validate(productUpdateSchema), async (req, res, next) => {
   try {
     const id = Number(req.params.id)
-    const { nameHe, nameEn, descriptionHe, descriptionEn, imageUrl, orderIndex } = req.body
+    const { nameHe, nameEn, descriptionHe, descriptionEn } = req.body
 
     const product = await prisma.product.update({
       where: { id },
-      data: { nameHe, nameEn, descriptionHe, descriptionEn, imageUrl, orderIndex },
+      data: { nameHe, nameEn, descriptionHe, descriptionEn },
     })
 
     res.json({ success: true, data: product })
@@ -30,7 +33,7 @@ router.put('/:id', requireAuth, async (req, res, next) => {
   }
 })
 
-router.post('/:id/image', requireAuth, upload.single('image'), async (req, res, next) => {
+router.post('/:id/image', requireAuth, uploadLimiter, upload.single('image'), async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, error: 'No file uploaded' })

@@ -2,16 +2,15 @@ import bcrypt from 'bcrypt'
 import { Router } from 'express'
 import jwt, { SignOptions } from 'jsonwebtoken'
 import { requireAuth } from '../middleware/auth'
+import { validate } from '../middleware/validate'
+import { loginLimiter } from '../app'
+import { loginSchema } from '../validators'
 import { AuthRequest } from '../types'
 
 const router = Router()
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body as { email?: string; password?: string }
-
-  if (!email || !password) {
-    return res.status(400).json({ success: false, error: 'Email and password are required' })
-  }
+router.post('/login', loginLimiter, validate(loginSchema), async (req, res) => {
+  const { email, password } = req.body as { email: string; password: string }
 
   if (email !== process.env.ADMIN_EMAIL) {
     return res.status(401).json({ success: false, error: 'Invalid credentials' })

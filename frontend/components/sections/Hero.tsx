@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import SectionBadge from '@/components/ui/SectionBadge'
 import Button from '@/components/ui/Button'
@@ -57,12 +58,15 @@ export default function Hero() {
             <div className="relative w-full h-full flex items-center justify-center">
               <div className="absolute w-[80%] h-[80%] border border-primary/25 rounded-full animate-[spin_30s_linear_infinite]"></div>
               <div className="absolute w-[95%] h-[95%] border border-electric/20 rounded-full animate-[spin_45s_linear_infinite_reverse]"></div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Global Network Visualization"
-                className="w-[70%] h-[70%] object-cover rounded-full opacity-70 mix-blend-screen"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbyTCjYK0yzxEoQKxqq9ZyNmajphLVm2TMqwbZLg4hzh2yLT-qClaODJSMH3zHlDuashqN-BH5_BPG5SKg_FvnYeUSQCj04ELe8Umvg8W4IBP1qGZW0Qm3iwRNcp9oBKt35aFqt6QrUfYDYPNZmgNgVYvisHNaauKCAf0AvjPIgnGsGyrY8QfIZ8NB3IOS-vMF5wC36DQFnzB_JTkmMnch06wuL7N1tb5voI7BEkvpvFY_rx5pvE2b24h7p6cSeWG1xbq1l-V9lmz1"
-              />
+              <div className="relative w-[70%] h-[70%]">
+                <Image
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbyTCjYK0yzxEoQKxqq9ZyNmajphLVm2TMqwbZLg4hzh2yLT-qClaODJSMH3zHlDuashqN-BH5_BPG5SKg_FvnYeUSQCj04ELe8Umvg8W4IBP1qGZW0Qm3iwRNcp9oBKt35aFqt6QrUfYDYPNZmgNgVYvisHNaauKCAf0AvjPIgnGsGyrY8QfIZ8NB3IOS-vMF5wC36DQFnzB_JTkmMnch06wuL7N1tb5voI7BEkvpvFY_rx5pvE2b24h7p6cSeWG1xbq1l-V9lmz1"
+                  alt="Global Network Visualization"
+                  fill
+                  priority
+                  className="object-cover rounded-full opacity-70 mix-blend-screen"
+                />
+              </div>
 
               {floatingIcons.map((icon, i) => (
                 <span

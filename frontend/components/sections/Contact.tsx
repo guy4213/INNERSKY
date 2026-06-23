@@ -54,12 +54,14 @@ export default function Contact() {
                   value={form.name}
                   onChange={handleChange('name')}
                   placeholder={lang === 'he' ? 'שם*' : 'Name*'}
+                  aria-label={lang === 'he' ? 'שם' : 'Name'}
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50"
                 />
                 <input
                   value={form.company}
                   onChange={handleChange('company')}
                   placeholder={lang === 'he' ? 'חברה' : 'Company'}
+                  aria-label={lang === 'he' ? 'חברה' : 'Company'}
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50"
                 />
                 <input
@@ -68,12 +70,14 @@ export default function Contact() {
                   value={form.email}
                   onChange={handleChange('email')}
                   placeholder={lang === 'he' ? 'אימייל*' : 'Email*'}
+                  aria-label={lang === 'he' ? 'אימייל' : 'Email'}
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50"
                 />
                 <input
                   value={form.phone}
                   onChange={handleChange('phone')}
                   placeholder={lang === 'he' ? 'טלפון' : 'Phone'}
+                  aria-label={lang === 'he' ? 'טלפון' : 'Phone'}
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50"
                 />
                 <textarea
@@ -81,6 +85,7 @@ export default function Contact() {
                   value={form.message}
                   onChange={handleChange('message')}
                   placeholder={lang === 'he' ? 'הודעה*' : 'Message*'}
+                  aria-label={lang === 'he' ? 'הודעה' : 'Message'}
                   rows={4}
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50 resize-none"
                 />
@@ -91,16 +96,18 @@ export default function Contact() {
                     : lang === 'he' ? 'שלח הודעה' : 'Send Message'}
                 </Button>
 
-                {status === 'success' && (
-                  <p className="text-primary font-body-md text-body-md">
-                    {lang === 'he' ? 'ההודעה נשלחה בהצלחה!' : 'Message sent successfully!'}
-                  </p>
-                )}
-                {status === 'error' && (
-                  <p className="text-error font-body-md text-body-md">
-                    {lang === 'he' ? 'אירעה שגיאה. נסו שוב.' : 'Something went wrong. Please try again.'}
-                  </p>
-                )}
+                <div aria-live="polite" aria-atomic="true">
+                  {status === 'success' && (
+                    <p className="text-primary font-body-md text-body-md">
+                      {lang === 'he' ? 'ההודעה נשלחה בהצלחה!' : 'Message sent successfully!'}
+                    </p>
+                  )}
+                  {status === 'error' && (
+                    <p className="text-error font-body-md text-body-md">
+                      {lang === 'he' ? 'אירעה שגיאה. נסו שוב.' : 'Something went wrong. Please try again.'}
+                    </p>
+                  )}
+                </div>
               </form>
             </GlassCard>
           </div>

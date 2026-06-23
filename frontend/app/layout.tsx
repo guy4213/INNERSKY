@@ -1,11 +1,28 @@
 import type { Metadata } from 'next'
 import { LanguageProvider } from '@/context/LanguageContext'
 import MeshBackground from '@/components/ui/MeshBackground'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import './globals.css'
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://innersky.io'
 
 export const metadata: Metadata = {
   title: 'InnerSky | Corporate Travel Operations',
   description: 'INNERSKY helps organizations build, manage and optimize their corporate travel operations.',
+  openGraph: {
+    title: 'InnerSky | Corporate Travel Operations',
+    description: 'INNERSKY helps organizations build, manage and optimize their corporate travel operations.',
+    type: 'website',
+    locale: 'he_IL',
+    siteName: 'InnerSky',
+    url: siteUrl,
+    images: [{ url: `${siteUrl}/og-image.png`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'InnerSky | Corporate Travel Operations',
+    description: 'INNERSKY helps organizations build, manage and optimize their corporate travel operations.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -24,7 +41,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gradient-main font-rubik">
         <LanguageProvider>
           <MeshBackground />
-          {children}
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
         </LanguageProvider>
       </body>
     </html>

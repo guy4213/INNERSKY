@@ -1,16 +1,60 @@
 import cors from 'cors'
 import express from 'express'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
 import authRoutes from './routes/auth'
 import productsRoutes from './routes/products'
 import contactRoutes from './routes/contact'
 import uploadRoutes from './routes/upload'
 import adminRoutes from './routes/admin'
 import { errorHandler } from './middleware/errorHandler'
+import { prisma } from './lib/db'
 
 const app = express()
 
-app.use(cors({ origin: process.env.FRONTEND_URL }))
+app.use(helmet())
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}))
 app.use(express.json())
+
+const tooManyRequestsResponse = { success: false, error: 'Too many requests' }
+
+export const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: tooManyRequestsResponse,
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+export const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  message: tooManyRequestsResponse,
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+export const uploadLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 20,
+  message: tooManyRequestsResponse,
+  standardHeaders: true,
+  legacyHeaders: false,
+})
+
+app.get('/api/health', async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`
+    res.json({ success: true, data: { status: 'ok', timestamp: new Date().toISOString() } })
+  } catch {
+    res.status(503).json({ success: false, error: 'Database unavailable' })
+  }
+})
 
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productsRoutes)
