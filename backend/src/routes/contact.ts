@@ -3,7 +3,7 @@ import { prisma } from '../lib/db'
 import { resend, RESEND_TO_EMAIL } from '../lib/resend'
 import { escapeHtml } from '../lib/sanitize'
 import { validate } from '../middleware/validate'
-import { contactLimiter } from '../app'
+import { contactLimiter } from '../middleware/rateLimiters'
 import { contactSchema } from '../validators'
 
 const router = Router()

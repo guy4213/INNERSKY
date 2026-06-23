@@ -1,7 +1,6 @@
 import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
-import rateLimit from 'express-rate-limit'
 import authRoutes from './routes/auth'
 import productsRoutes from './routes/products'
 import contactRoutes from './routes/contact'
@@ -20,32 +19,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }))
 app.use(express.json())
-
-const tooManyRequestsResponse = { success: false, error: 'Too many requests' }
-
-export const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
-  message: tooManyRequestsResponse,
-  standardHeaders: true,
-  legacyHeaders: false,
-})
-
-export const contactLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 10,
-  message: tooManyRequestsResponse,
-  standardHeaders: true,
-  legacyHeaders: false,
-})
-
-export const uploadLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 20,
-  message: tooManyRequestsResponse,
-  standardHeaders: true,
-  legacyHeaders: false,
-})
 
 app.get('/api/health', async (req, res) => {
   try {

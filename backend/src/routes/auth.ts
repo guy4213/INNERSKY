@@ -3,7 +3,7 @@ import { Router } from 'express'
 import jwt, { SignOptions } from 'jsonwebtoken'
 import { requireAuth } from '../middleware/auth'
 import { validate } from '../middleware/validate'
-import { loginLimiter } from '../app'
+import { loginLimiter } from '../middleware/rateLimiters'
 import { loginSchema } from '../validators'
 import { AuthRequest } from '../types'
 

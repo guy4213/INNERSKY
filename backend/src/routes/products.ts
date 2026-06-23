@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { requireAuth } from '../middleware/auth'
 import { validate } from '../middleware/validate'
-import { uploadLimiter } from '../app'
+import { uploadLimiter } from '../middleware/rateLimiters'
 import { productUpdateSchema } from '../validators'
 import { prisma } from '../lib/db'
 import { upload, uploadImageBuffer } from './upload'
