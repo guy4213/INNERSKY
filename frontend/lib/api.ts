@@ -69,6 +69,20 @@ export function sendContactMessage(data: {
   })
 }
 
+export function createProduct() {
+  return request<Product>('/api/products', {
+    method: 'POST',
+    headers: authHeaders(),
+  })
+}
+
+export function deleteProduct(id: number) {
+  return request('/api/products/' + id, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+}
+
 export function getSubmissions() {
   return request<ContactSubmission[]>('/api/admin/submissions', {
     headers: authHeaders(),

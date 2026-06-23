@@ -23,8 +23,6 @@ export default function Products() {
       .catch(() => setProducts([]))
   }, [])
 
-  const placeholder = lang === 'he' ? 'תוכן בקרוב' : 'Coming soon'
-
   return (
     <section id="products" className="py-section-gap">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
@@ -47,6 +45,7 @@ export default function Products() {
             : products.map((product) => {
                 const name = lang === 'he' ? product.nameHe : product.nameEn
                 const description = lang === 'he' ? product.descriptionHe : product.descriptionEn
+                const fallback = lang === 'he' ? 'תוכן בקרוב' : 'Coming soon'
 
                 return (
                   <GlassCard key={product.id}>
@@ -64,9 +63,9 @@ export default function Products() {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-headline-md text-headline-md mb-2">{name || placeholder}</h3>
+                    <h3 className="font-headline-md text-headline-md mb-2">{name || fallback}</h3>
                     <p className="font-body-md text-body-md text-on-surface-variant">
-                      {description || placeholder}
+                      {description || fallback}
                     </p>
                   </GlassCard>
                 )

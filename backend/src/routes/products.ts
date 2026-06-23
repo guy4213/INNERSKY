@@ -17,6 +17,28 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+  try {
+    const count = await prisma.product.count()
+    const product = await prisma.product.create({
+      data: { orderIndex: count + 1 },
+    })
+    res.json({ success: true, data: product })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', requireAuth, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    await prisma.product.delete({ where: { id } })
+    res.json({ success: true })
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:id', requireAuth, validate(productUpdateSchema), async (req, res, next) => {
   try {
     const id = Number(req.params.id)

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getProducts, getSubmissions, verifyToken } from '@/lib/api'
+import { getProducts, getSubmissions, verifyToken, createProduct } from '@/lib/api'
 import { clearToken, getToken } from '@/lib/auth'
 import ProductEditor from '@/components/admin/ProductEditor'
 import GlassCard from '@/components/ui/GlassCard'
@@ -48,6 +48,17 @@ export default function AdminPage() {
     router.push('/admin/login')
   }
 
+  const handleAddProduct = async () => {
+    const res = await createProduct()
+    if (res.success && res.data) {
+      setProducts((prev) => [...prev, res.data!])
+    }
+  }
+
+  const handleDeleteProduct = (id: number) => {
+    setProducts((prev) => prev.filter((p) => p.id !== id))
+  }
+
   if (!checked) {
     return (
       <main className="min-h-screen flex items-center justify-center">
@@ -68,7 +79,16 @@ export default function AdminPage() {
         </button>
       </div>
 
-      <h2 className="font-headline-md text-headline-md mb-6">מוצרים</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="font-headline-md text-headline-md">מוצרים</h2>
+        <button
+          onClick={handleAddProduct}
+          className="flex items-center gap-2 bg-electric text-white px-5 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:scale-105 transition-all glow-purple"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add</span>
+          הוסף מוצר
+        </button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
         {products.map((product) => (
           <ProductEditor
@@ -77,6 +97,7 @@ export default function AdminPage() {
             onUpdated={(updated) =>
               setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
             }
+            onDeleted={handleDeleteProduct}
           />
         ))}
       </div>

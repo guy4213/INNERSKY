@@ -3,10 +3,18 @@
 import { useState } from 'react'
 import GlassCard from '@/components/ui/GlassCard'
 import ImageUploader from './ImageUploader'
-import { updateProduct } from '@/lib/api'
+import { updateProduct, deleteProduct } from '@/lib/api'
 import { Product } from '@/types'
 
-export default function ProductEditor({ product, onUpdated }: { product: Product; onUpdated: (p: Product) => void }) {
+export default function ProductEditor({
+  product,
+  onUpdated,
+  onDeleted,
+}: {
+  product: Product
+  onUpdated: (p: Product) => void
+  onDeleted: (id: number) => void
+}) {
   const [form, setForm] = useState({
     nameHe: product.nameHe,
     nameEn: product.nameEn,
@@ -14,7 +22,7 @@ export default function ProductEditor({ product, onUpdated }: { product: Product
     descriptionEn: product.descriptionEn,
   })
   const [imageUrl, setImageUrl] = useState(product.imageUrl)
-  const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error' | 'deleting'>('idle')
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -35,9 +43,34 @@ export default function ProductEditor({ product, onUpdated }: { product: Product
     }
   }
 
+  const handleDelete = async () => {
+    if (!confirm('למחוק את המוצר הזה?')) return
+    setStatus('deleting')
+    try {
+      const res = await deleteProduct(product.id)
+      if (res.success) {
+        onDeleted(product.id)
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <GlassCard className="flex flex-col gap-4">
-      <h3 className="font-headline-md text-headline-md">מוצר #{product.orderIndex}</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="font-headline-md text-headline-md">מוצר #{product.orderIndex}</h3>
+        <button
+          onClick={handleDelete}
+          disabled={status === 'deleting'}
+          aria-label="מחק מוצר"
+          className="text-error hover:text-error/70 transition-colors"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>delete</span>
+        </button>
+      </div>
 
       <ImageUploader
         productId={product.id}
@@ -81,7 +114,7 @@ export default function ProductEditor({ product, onUpdated }: { product: Product
       </button>
 
       {status === 'success' && <p className="text-primary text-sm">נשמר בהצלחה!</p>}
-      {status === 'error' && <p className="text-error text-sm">שגיאה בשמירה.</p>}
+      {status === 'error' && <p className="text-error text-sm">שגיאה.</p>}
     </GlassCard>
   )
 }

@@ -21,7 +21,7 @@ export default function Hero() {
           {lang === 'he' ? (
             <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[1.1] tracking-tight">
               נסיעות עסקיות אינן רק שירות מקצועי. <br />
-              <span className="text-primary italic glow-text-primary">הן פונקציה ניהולית.</span>
+              <span className="text-primary italic glow-text-primary"> הן פונקציה ניהולית.</span>
             </h1>
           ) : (
             <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg mb-6 leading-[1.1] tracking-tight">
