@@ -19,7 +19,7 @@ export default function CaseStudy() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
         <div className="max-w-2xl mb-16">
           <p className="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">
-            Case Study
+            Case Study.
           </p>
           <h2 className="font-display-lg text-headline-md text-on-surface">Global Technology Company</h2>
         </div>
