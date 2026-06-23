@@ -26,7 +26,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      if (e.ctrlKey && e.key === 'F9') {
         router.push('/admin/login')
       }
     }
