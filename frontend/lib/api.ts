@@ -69,6 +69,13 @@ export function sendContactMessage(data: {
   })
 }
 
+export function clearProductImage(id: number) {
+  return request<Product>(`/api/products/${id}/image`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+}
+
 export function createProduct() {
   return request<Product>('/api/products', {
     method: 'POST',

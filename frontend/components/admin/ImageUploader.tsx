@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { uploadProductImage } from '@/lib/api'
+import { uploadProductImage, clearProductImage } from '@/lib/api'
 
 interface ImageUploaderProps {
   productId: number
@@ -43,9 +43,22 @@ export default function ImageUploader({ productId, imageUrl, onUploaded }: Image
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative w-full h-40 rounded-lg bg-surface-variant overflow-hidden flex items-center justify-center">
+      <div className="relative w-full h-40 rounded-lg bg-surface-variant overflow-hidden flex items-center justify-center group">
         {imageUrl ? (
-          <Image src={imageUrl} alt="תמונת מוצר" fill className="object-cover" />
+          <>
+            <Image src={imageUrl} alt="תמונת מוצר" fill className="object-cover" />
+            <button
+              type="button"
+              onClick={async () => {
+                const res = await clearProductImage(productId)
+                if (res.success) onUploaded('')
+              }}
+              aria-label="מחק תמונה"
+              className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <span className="material-symbols-outlined text-white" style={{ fontSize: '32px' }}>delete</span>
+            </button>
+          </>
         ) : (
           <span className="material-symbols-outlined text-on-surface-variant" style={{ fontSize: '40px' }}>
             image

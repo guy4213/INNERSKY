@@ -55,6 +55,19 @@ router.put('/:id', requireAuth, validate(productUpdateSchema), async (req, res, 
   }
 })
 
+router.delete('/:id/image', requireAuth, async (req, res, next) => {
+  try {
+    const id = Number(req.params.id)
+    const product = await prisma.product.update({
+      where: { id },
+      data: { imageUrl: '' },
+    })
+    res.json({ success: true, data: product })
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/:id/image', requireAuth, uploadLimiter, upload.single('image'), async (req, res, next) => {
   try {
     if (!req.file) {
