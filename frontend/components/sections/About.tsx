@@ -8,6 +8,7 @@ const industries = [
   { he: 'תקשורת', en: 'Telecom' },
   { he: 'אנרגיה', en: 'Energy' },
   { he: 'סייבר', en: 'Cyber' },
+  { he: 'ביטחון', en: 'Defense' },
   { he: 'ארגונים בינלאומיים', en: 'International Organizations' },
 ]
 
@@ -34,7 +35,7 @@ export default function About() {
                   תפעולית מורכבת לפונקציה ניהולית יעילה ומבוקרת.
                 </p>
                 <p>
-                  הניסיון שלנו כולל עבודה עם חברות טכנולוגיה, תקשורת, אנרגיה, סייבר וארגונים בינלאומיים
+                  הניסיון שלנו כולל עבודה עם חברות טכנולוגיה, תקשורת, אנרגיה, סייבר, ביטחון וארגונים בינלאומיים
                   בעלי פעילות גלובלית.
                 </p>
               </div>
@@ -62,7 +63,7 @@ export default function About() {
           <div className="lg:col-span-5">
             <GlassCard>
               <h3 className="font-headline-md text-headline-md mb-6 text-on-surface">
-                {lang === 'he' ? 'תחומי פעילות' : 'Industries We Serve'}
+                {lang === 'he' ? 'התעשיות שאנו משרתים' : 'Industries We Serve'}
               </h3>
               <div className="flex flex-col gap-4">
                 {industries.map((industry) => (

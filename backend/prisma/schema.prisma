@@ -27,3 +27,29 @@ model ContactSubmission {
   message   String
   createdAt DateTime @default(now())
 }
+
+model Article {
+  id        Int      @id @default(autoincrement())
+  titleHe   String   @default("")
+  titleEn   String   @default("")
+  contentHe String   @default("")
+  contentEn String   @default("")
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id         Int      @id @default(autoincrement())
+  icon       String   @default("assignment")
+  color      String   @default("text-primary")
+  titleHe    String   @default("")
+  titleEn    String   @default("")
+  descHe     String   @default("")
+  descEn     String   @default("")
+  includesHe String   @default("")
+  includesEn String   @default("")
+  resultHe   String   @default("")
+  resultEn   String   @default("")
+  featured   Boolean  @default(false)
+  orderIndex Int      @default(0)
+  updatedAt  DateTime @updatedAt
+}

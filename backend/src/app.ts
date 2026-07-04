@@ -3,6 +3,8 @@ import express from 'express'
 import helmet from 'helmet'
 import authRoutes from './routes/auth'
 import productsRoutes from './routes/products'
+import servicesRoutes from './routes/services'
+import articleRoutes from './routes/article'
 import contactRoutes from './routes/contact'
 import uploadRoutes from './routes/upload'
 import adminRoutes from './routes/admin'
@@ -32,6 +34,8 @@ app.get('/api/health', async (req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/products', productsRoutes)
+app.use('/api/services', servicesRoutes)
+app.use('/api/article', articleRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/admin', adminRoutes)

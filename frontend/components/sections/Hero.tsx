@@ -14,7 +14,7 @@ export default function Hero() {
     <section className="relative pt-32 pb-section-gap overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
         <div className="lg:col-span-6 z-10">
-          <SectionBadge>
+          <SectionBadge textClassName="text-[13px]">
             {lang === 'he' ? 'מנוע נסיעות עסקיות מהדור הבא' : 'Next-Gen Travel Operations'}
           </SectionBadge>
 

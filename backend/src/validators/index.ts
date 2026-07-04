@@ -19,3 +19,21 @@ export const productUpdateSchema = z.object({
   descriptionHe: z.string().max(2000).optional(),
   descriptionEn: z.string().max(2000).optional(),
 })
+
+export const articleUpdateSchema = z.object({
+  titleHe: z.string().max(300).optional(),
+  titleEn: z.string().max(300).optional(),
+  contentHe: z.string().max(10000).optional(),
+  contentEn: z.string().max(10000).optional(),
+})
+
+export const serviceUpdateSchema = z.object({
+  titleHe: z.string().max(200).optional(),
+  titleEn: z.string().max(200).optional(),
+  descHe: z.string().max(2000).optional(),
+  descEn: z.string().max(2000).optional(),
+  includesHe: z.string().max(1000).optional(),
+  includesEn: z.string().max(1000).optional(),
+  resultHe: z.string().max(500).optional(),
+  resultEn: z.string().max(500).optional(),
+})

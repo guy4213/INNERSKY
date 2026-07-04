@@ -3,6 +3,12 @@
 import { useLanguage } from '@/context/LanguageContext'
 import GlassCard from '@/components/ui/GlassCard'
 
+const processSteps = [
+  { he: 'עובדים מזמינים נסיעות', en: 'Employees book their own trips' },
+  { he: 'מנהלות משרד מטפלות בבקשות', en: 'Office managers handle requests' },
+  { he: 'מנהלים מאשרים חריגים', en: 'Managers approve exceptions' },
+]
+
 const challenges = [
   { icon: 'sync_problem', he: 'חוסר אחידות בתהליך', en: 'Process Inconsistency' },
   { icon: 'policy', he: 'חריגות ממדיניות', en: 'Policy Non-Compliance' },
@@ -25,36 +31,58 @@ export default function Challenge() {
 
           {lang === 'he' ? (
             <p className="font-body-lg text-body-md text-on-surface-variant">
-              בשלבים מוקדמים של החברה, ניהול הנסיעות מתבצע בדרך כלל באופן טבעי. עובדים מזמינים נסיעות.
-              מנהלות משרד מטפלות בבקשות. מנהלים מאשרים חריגים. אבל ככל שהארגון גדל, מתחילים להופיע
-              אתגרים:
+              בשלבים מוקדמים של החברה, ניהול הנסיעות מתבצע בדרך כלל באופן טבעי. אבל ככל שהארגון גדל, מתחילים להופיע אתגרים:
             </p>
           ) : (
             <p className="font-body-lg text-body-md text-on-surface-variant">
-              In the early stages of a company, travel management tends to happen naturally. Employees
-              book their own trips. Office managers handle requests. Managers approve exceptions. But as
-              the organization grows, challenges start to emerge:
+              In the early stages of a company, travel management tends to happen naturally. But as the organization grows, challenges start to emerge:
             </p>
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter mb-12">
-          {challenges.map((item) => (
-            <GlassCard key={item.icon} className="flex flex-col items-start">
-              <span className="material-symbols-outlined text-electric mb-4" style={{ fontSize: '32px' }}>
-                {item.icon}
+        {/* Process flow with arrows */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 mb-12 flex-wrap">
+          {processSteps.map((step, i) => (
+            <div key={step.en} className="flex flex-col md:flex-row items-center gap-3">
+              <div className="glass-card rounded-xl px-5 py-3 text-center text-on-surface font-body-md text-body-md">
+                {lang === 'he' ? step.he : step.en}
+              </div>
+              <span
+                className="material-symbols-outlined text-primary"
+                style={{
+                  fontSize: '28px',
+                  transform: lang === 'he' ? 'rotate(180deg)' : undefined,
+                }}
+              >
+                arrow_forward
               </span>
-              <h3 className="font-headline-md text-headline-md mb-2">
-                {lang === 'he' ? item.he : item.en}
-              </h3>
-              <p className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
-                {lang === 'he' ? item.en : item.he}
-              </p>
-            </GlassCard>
+            </div>
           ))}
+          <div className="glass-card rounded-xl px-5 py-3 text-center text-electric font-body-md text-body-md border border-electric/30">
+            {lang === 'he' ? 'מתחילים אתגרים...' : 'Challenges emerge...'}
+          </div>
         </div>
 
-        <p className="italic text-primary font-body-lg text-body-lg glow-text-primary text-center">
+        {/* All challenges in one unified box */}
+        <GlassCard className="mb-12 p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {challenges.map((item) => (
+              <div key={item.icon} className="flex items-center gap-4">
+                <span className="material-symbols-outlined text-electric flex-shrink-0" style={{ fontSize: '26px' }}>
+                  {item.icon}
+                </span>
+                <span className="font-body-md text-body-md text-on-surface-variant">
+                  {lang === 'he' ? item.he : item.en}
+                </span>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+
+        <p
+          className="italic text-primary font-bold glow-text-primary text-center"
+          style={{ fontSize: '28px', lineHeight: '1.3' }}
+        >
           {lang === 'he'
             ? 'זה הרגע שבו ניהול הנסיעות הופך לפונקציה ניהולית.'
             : 'This is the moment when travel management becomes a management function.'}

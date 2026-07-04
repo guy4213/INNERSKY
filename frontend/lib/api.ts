@@ -1,4 +1,4 @@
-import { ApiResponse, ContactSubmission, Product } from '@/types'
+import { ApiResponse, Article, ContactSubmission, Product, Service } from '@/types'
 import { getToken } from './auth'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -93,5 +93,29 @@ export function deleteProduct(id: number) {
 export function getSubmissions() {
   return request<ContactSubmission[]>('/api/admin/submissions', {
     headers: authHeaders(),
+  })
+}
+
+export function getArticle() {
+  return request<Article>('/api/article')
+}
+
+export function updateArticle(id: number, data: Partial<Article>) {
+  return request<Article>(`/api/article/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify(data),
+  })
+}
+
+export function getServices() {
+  return request<Service[]>('/api/services')
+}
+
+export function updateService(id: number, data: Partial<Service>) {
+  return request<Service>(`/api/services/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify(data),
   })
 }

@@ -8,6 +8,24 @@ body {
   overflow-x: hidden;
 }
 
+html[lang="he"] body {
+  font-family: Arial, sans-serif;
+  font-size: 1.05rem;
+}
+
+html[lang="he"] h1,
+html[lang="he"] h2,
+html[lang="he"] h3,
+html[lang="he"] h4,
+html[lang="he"] p,
+html[lang="he"] span:not(.material-symbols-outlined),
+html[lang="he"] div:not(.material-symbols-outlined),
+html[lang="he"] a,
+html[lang="he"] button,
+html[lang="he"] li {
+  font-family: Arial, sans-serif;
+}
+
 .glass-card {
   background: rgba(18, 33, 49, 0.6);
   backdrop-filter: blur(12px);

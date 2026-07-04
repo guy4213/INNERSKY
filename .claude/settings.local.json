@@ -9,7 +9,10 @@
       "Bash(npx tsc *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(node -e \"const {execSync} = require\\('child_process'\\); console.log\\(execSync\\('npx prisma --version'\\).toString\\(\\)\\)\")"
+      "Bash(node -e \"const {execSync} = require\\('child_process'\\); console.log\\(execSync\\('npx prisma --version'\\).toString\\(\\)\\)\")",
+      "Bash(Get-ChildItem C:\\\\Users\\\\guy42\\\\Documents\\\\INNERSKY\\\\frontend\\\\components *)",
+      "Bash(npx prisma *)",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\guy42\\\\Documents\\\\INNERSKY\\\\frontend\\\\.next\" -ErrorAction SilentlyContinue)"
     ]
   }
 }

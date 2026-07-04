@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import { getToken } from '@/lib/auth'
 
 const links = [
   { href: '#about', he: 'מי אנחנו', en: 'About' },
   { href: '#services', he: 'שירותים', en: 'Services' },
-  { href: '#values', he: 'יתרונות', en: 'Values' },
-  { href: '#case-study', he: 'Case Study', en: 'Case Study' },
+  { href: '#values', he: 'למה InnerSky', en: 'Why InnerSky' },
+  { href: '#case-study', he: 'מקרה לדוגמה', en: 'Case Study' },
   { href: '#products', he: 'מוצרים', en: 'Products' },
   { href: '#contact', he: 'צור קשר', en: 'Contact' },
 ]
@@ -34,6 +35,26 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [router])
 
+  const langToggleBtn = (
+    <button
+      onClick={toggle}
+      aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
+      className="text-on-surface-variant font-label-sm text-label-sm font-bold uppercase border border-outline/30 rounded-full px-3 py-1 hover:text-primary hover:border-primary/40 transition-colors"
+    >
+      {lang === 'he' ? 'EN' : 'עב'}
+    </button>
+  )
+
+  const hamburgerBtn = (
+    <button
+      className="text-on-surface-variant"
+      onClick={() => setOpen((v) => !v)}
+      aria-label={lang === 'he' ? 'פתח תפריט' : 'Open menu'}
+    >
+      <span className="material-symbols-outlined">menu</span>
+    </button>
+  )
+
   return (
     <nav
       role="navigation"
@@ -41,17 +62,20 @@ export default function Navbar() {
       className="fixed top-0 w-full z-50 border-b border-white/5 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
       style={{ minHeight: '80px' }}
     >
-      <div className="flex justify-between items-center w-full px-6 md:px-10 h-20 max-w-[1440px] mx-auto">
-        <div>
-          <div className="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">
-            InnerSky
-          </div>
-          <div className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
-            {lang === 'he' ? 'תפעול נסיעות עסקיות' : 'Corporate Travel Operations'}
-          </div>
-        </div>
+      {/* Desktop bar */}
+      <div className="hidden md:flex justify-between items-center w-full px-10 h-20 max-w-[1440px] mx-auto">
+        <a href="/">
+          <Image
+            src="/logo.png"
+            alt="InnerSky"
+            width={400}
+            height={80}
+            style={{ height: '200px', width: '280px' }}
+            priority
+          />
+        </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="flex items-center gap-8">
           {links.map((link) => (
             <a
               key={link.href}
@@ -68,35 +92,43 @@ export default function Navbar() {
             <a
               href="/admin"
               aria-label="Admin panel"
-              className="hidden sm:inline-flex items-center gap-1.5 border border-primary/30 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-primary/10 transition-all"
+              className="inline-flex items-center gap-1.5 border border-primary/30 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-primary/10 transition-all"
             >
               <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>admin_panel_settings</span>
               Admin
             </a>
           )}
 
-          <button
-            onClick={toggle}
-            aria-label={lang === 'he' ? 'Switch to English' : 'עבור לעברית'}
-            className="text-on-surface-variant font-label-sm text-label-sm font-bold uppercase border border-outline/30 rounded-full px-3 py-1 hover:text-primary hover:border-primary/40 transition-colors"
-          >
-            {lang === 'he' ? 'EN' : 'עב'}
-          </button>
+          {langToggleBtn}
 
           <a
             href="#contact"
-            className="hidden sm:inline-flex bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
+            className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
           >
             {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
           </a>
+        </div>
+      </div>
 
-          <button
-            className="md:hidden text-on-surface-variant"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={lang === 'he' ? 'פתח תפריט' : 'Open menu'}
-          >
-            <span className="material-symbols-outlined">menu</span>
-          </button>
+      {/* Mobile bar: 3-column grid. RTL (Hebrew) reverses visual order so hamburger lands on the right and lang toggle on the left automatically. */}
+      <div className="md:hidden grid grid-cols-3 items-center w-full px-4 h-16">
+        <div className="flex justify-start">
+          {hamburgerBtn}
+        </div>
+        <div className="flex justify-center">
+          <a href="/">
+            <Image
+              src="/logo.png"
+              alt="InnerSky"
+              width={200}
+              height={40}
+              style={{ height: '90px', width: '180px' }}
+              priority
+            />
+          </a>
+        </div>
+        <div className="flex justify-end">
+          {langToggleBtn}
         </div>
       </div>
 

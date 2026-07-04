@@ -2,16 +2,20 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getProducts, getSubmissions, verifyToken, createProduct } from '@/lib/api'
+import { getProducts, getSubmissions, getServices, getArticle, verifyToken, createProduct } from '@/lib/api'
 import { clearToken, getToken } from '@/lib/auth'
 import ProductEditor from '@/components/admin/ProductEditor'
+import ServiceEditor from '@/components/admin/ServiceEditor'
+import ArticleEditor from '@/components/admin/ArticleEditor'
 import GlassCard from '@/components/ui/GlassCard'
-import { ContactSubmission, Product } from '@/types'
+import { Article, ContactSubmission, Product, Service } from '@/types'
 
 export default function AdminPage() {
   const router = useRouter()
   const [checked, setChecked] = useState(false)
   const [products, setProducts] = useState<Product[]>([])
+  const [services, setServices] = useState<Service[]>([])
+  const [article, setArticle] = useState<Article | null>(null)
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([])
 
   useEffect(() => {
@@ -36,6 +40,14 @@ export default function AdminPage() {
 
     getProducts().then((res) => {
       if (res.success && res.data) setProducts(res.data)
+    })
+
+    getServices().then((res) => {
+      if (res.success && res.data) setServices(res.data)
+    })
+
+    getArticle().then((res) => {
+      if (res.success && res.data) setArticle(res.data)
     })
 
     getSubmissions().then((res) => {
@@ -110,6 +122,32 @@ export default function AdminPage() {
           />
         ))}
       </div>
+
+      {services.length > 0 && (
+        <>
+          <h2 className="font-headline-md text-headline-md mb-6">שירותים</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-16">
+            {services.map((service) => (
+              <ServiceEditor
+                key={service.id}
+                service={service}
+                onUpdated={(updated) =>
+                  setServices((prev) => prev.map((s) => (s.id === updated.id ? updated : s)))
+                }
+              />
+            ))}
+          </div>
+        </>
+      )}
+
+      {article && (
+        <>
+          <h2 className="font-headline-md text-headline-md mb-6">מאמר</h2>
+          <div className="mb-16">
+            <ArticleEditor article={article} onUpdated={(updated) => setArticle(updated)} />
+          </div>
+        </>
+      )}
 
       <h2 className="font-headline-md text-headline-md mb-6">פניות מטופס יצירת קשר</h2>
       <GlassCard className="overflow-x-auto">

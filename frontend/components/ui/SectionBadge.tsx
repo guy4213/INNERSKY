@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
 
-export default function SectionBadge({ children }: { children: ReactNode }) {
+export default function SectionBadge({ children, textClassName }: { children: ReactNode; textClassName?: string }) {
   return (
     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
       <span className="w-2 h-2 rounded-full bg-electric animate-pulse"></span>
-      <span className="font-label-sm text-label-sm text-primary uppercase">{children}</span>
+      <span className={`font-label-sm text-primary uppercase ${textClassName ?? 'text-label-sm'}`}>{children}</span>
     </div>
   )
 }

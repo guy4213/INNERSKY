@@ -19,9 +19,11 @@ export default function CaseStudy() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10">
         <div className="max-w-2xl mb-16">
           <p className="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-2">
-            Case Study
+            {lang === 'he' ? 'מקרה לדוגמה' : 'Case Study'}
           </p>
-          <h2 className="font-display-lg text-headline-md text-on-surface">Global Technology Company</h2>
+          <h2 className="font-display-lg text-headline-md text-on-surface">
+            {lang === 'he' ? 'חברה טכנולוגיה גלובלית' : 'Global Technology Company'}
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
@@ -34,8 +36,8 @@ export default function CaseStudy() {
             </h3>
             <p className="font-body-md text-body-md text-on-surface-variant">
               {lang === 'he'
-                ? 'גידול משמעותי בפעילות הנסיעות יצר עומס תפעולי, ריבוי גורמי אישור וחוסר שקיפות בתהליך.'
-                : 'Significant growth in travel activity created an operational burden, multiple approval layers, and a lack of process visibility.'}
+                ? 'גידול משמעותי בפעילות החברה יצר עומס תפעולי, ריבוי מאשרים וחוסר שקיפות בתהליך.'
+                : 'Significant growth in company activity created operational overload, multiple approvers, and a lack of transparency in the process.'}
             </p>
           </GlassCard>
 
