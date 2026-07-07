@@ -25,7 +25,7 @@ export default function About() {
             </h2>
 
             {lang === 'he' ? (
-              <div className="font-body-lg text-body-md text-on-surface-variant space-y-4 mb-8">
+              <div className="font-body-lg text-body-lg text-on-surface-variant space-y-4 mb-8">
                 <p>
                   INNERSKY מתמחה בניהול ותפעול נסיעות עסקיות עבור ארגונים בישראל ובעולם.
                 </p>
