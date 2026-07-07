@@ -41,7 +41,7 @@ export default function Challenge() {
         </div>
 
         {/* Process flow with arrows */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-3 mb-12 flex-wrap">
+        <div className="flex flex-col md:flex-row items-center  gap-3 mb-12 flex-wrap">
           {processSteps.map((step, i) => (
             <div key={step.en} className="flex flex-col md:flex-row items-center gap-3">
               <div className="glass-card rounded-xl px-5 py-3 text-center text-on-surface font-body-md text-body-md">
