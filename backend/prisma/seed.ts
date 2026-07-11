@@ -61,6 +61,7 @@ async function main() {
       await prisma.service.create({ data: svc })
     }
   }
+
 }
 
 main()

@@ -16,6 +16,7 @@ npm run start        # Run compiled output
 npx prisma generate  # Regenerate Prisma client after schema changes
 npx prisma migrate dev  # Run migrations in development
 npm run prisma:seed  # Seed 3 default Product rows
+npm run admin:create -- <email> <password>  # Create or reset an admin account
 ```
 
 ### Frontend (`cd frontend`)
@@ -30,7 +31,6 @@ npm run lint   # ESLint via next lint
 **Backend** — copy `.env.example` to `.env` and fill in:
 - `DATABASE_URL` — PostgreSQL connection string
 - `JWT_SECRET` — random secret for signing tokens
-- `ADMIN_EMAIL` / `ADMIN_PASSWORD_HASH` — bcrypt hash of the admin password
 - `CLOUDINARY_*` — image hosting credentials
 - `RESEND_API_KEY` / `RESEND_TO_EMAIL` — transactional email
 - `FRONTEND_URL` — used for CORS allowlist
@@ -50,7 +50,7 @@ Express + TypeScript + Prisma (PostgreSQL). No test suite; type-checking is the 
 - `lib/` — singleton clients: `db.ts` (PrismaClient), `cloudinary.ts`, `resend.ts`
 - `types/index.ts` — `AuthRequest` (Express Request + `user`), `JwtPayload`
 
-Auth is single-admin only: credentials come from env vars (`ADMIN_EMAIL` + `ADMIN_PASSWORD_HASH`), not the database. JWT is verified on every protected route via `requireAuth`.
+Auth uses the `Admin` table. Login looks up the admin by email in the DB and compares the bcrypt hash. To add or reset an admin, run `npm run admin:create -- <email> <password>` — it hashes the password and upserts the row. JWT is verified on every protected route via `requireAuth`.
 
 ### Frontend (`frontend/`)
 Next.js 14 App Router + TypeScript + Tailwind CSS. Single public page (`app/page.tsx`) composed of section components, plus an admin area at `/admin`.
@@ -68,9 +68,11 @@ Next.js 14 App Router + TypeScript + Tailwind CSS. Single public page (`app/page
 The site defaults to Hebrew (`lang = 'he'`) with RTL layout. `useLanguage()` from `LanguageContext` exposes `lang` and `toggle`. Every section that shows copy must branch on `lang` to serve `nameHe`/`nameEn` (or equivalent) fields. Tailwind's `dir` utilities handle RTL/LTR layout automatically via the root `dir` attribute.
 
 ### Data model
-Two Prisma models:
+Prisma models:
+- `Admin` — email + bcrypt password hash. Upserted by seed from env vars.
 - `Product` — bilingual name + description, Cloudinary image URL, sort order. Seeded with 3 rows on first run.
 - `ContactSubmission` — form data stored on submission; readable only by authenticated admin.
+- `Article`, `Service` — bilingual editable content driven by admin panel.
 
 ### Deployment
 - Backend → Render (`npm run build && npm start`)

@@ -8,6 +8,8 @@ export interface ApiResponse<T = unknown> {
 
 export interface JwtPayload {
   role: 'admin'
+  adminId?: number
+  email?: string
 }
 
 export interface AuthRequest extends Request {
