@@ -10,8 +10,39 @@ import Products from '@/components/sections/Products'
 import Article from '@/components/sections/Article'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
+import { Article as ArticleType, Product } from '@/types'
 
-export default function Home() {
+export const revalidate = 3600
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
+
+async function fetchProducts(): Promise<Product[]> {
+  if (!API_URL) return []
+  try {
+    const res = await fetch(`${API_URL}/api/products`, { next: { revalidate: 3600 } })
+    if (!res.ok) return []
+    const json = await res.json()
+    return json.success && json.data ? json.data : []
+  } catch {
+    return []
+  }
+}
+
+async function fetchArticle(): Promise<ArticleType | null> {
+  if (!API_URL) return null
+  try {
+    const res = await fetch(`${API_URL}/api/article`, { next: { revalidate: 3600 } })
+    if (!res.ok) return null
+    const json = await res.json()
+    return json.success && json.data ? json.data : null
+  } catch {
+    return null
+  }
+}
+
+export default async function Home() {
+  const [products, article] = await Promise.all([fetchProducts(), fetchArticle()])
+
   return (
     <>
       <Navbar />
@@ -23,8 +54,8 @@ export default function Home() {
         <Values />
         <CaseStudy />
         <WhyUs />
-        <Products />
-        <Article />
+        <Products initialProducts={products} />
+        <Article initialArticle={article} />
         <Contact />
       </main>
       <Footer />

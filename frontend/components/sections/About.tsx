@@ -38,6 +38,9 @@ export default function About() {
                   הניסיון שלנו כולל עבודה עם חברות טכנולוגיה, תקשורת, אנרגיה, סייבר, ביטחון וארגונים בינלאומיים
                   בעלי פעילות גלובלית.
                 </p>
+                <p>
+                  ליווינו ארגונים בהטמעת SAP Concur, ComBtas, Mesh Payments, Navan, TravelPerk ועוד.
+                </p>
               </div>
             ) : (
               <div className="font-body-lg text-body-md text-on-surface-variant space-y-4 mb-8">
@@ -49,6 +52,9 @@ export default function About() {
                   With more than 20 years of experience managing global travel programs, policies,
                   suppliers, budgets and technology implementations, we help companies transform travel
                   from a fragmented operational burden into a structured management function.
+                </p>
+                <p>
+                  We have led implementations of SAP Concur, ComBtas, Mesh Payments, Navan, TravelPerk and more.
                 </p>
               </div>
             )}

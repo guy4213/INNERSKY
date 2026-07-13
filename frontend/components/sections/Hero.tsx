@@ -61,7 +61,7 @@ export default function Hero() {
               <div className="relative w-[70%] h-[70%]">
                 <Image
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbyTCjYK0yzxEoQKxqq9ZyNmajphLVm2TMqwbZLg4hzh2yLT-qClaODJSMH3zHlDuashqN-BH5_BPG5SKg_FvnYeUSQCj04ELe8Umvg8W4IBP1qGZW0Qm3iwRNcp9oBKt35aFqt6QrUfYDYPNZmgNgVYvisHNaauKCAf0AvjPIgnGsGyrY8QfIZ8NB3IOS-vMF5wC36DQFnzB_JTkmMnch06wuL7N1tb5voI7BEkvpvFY_rx5pvE2b24h7p6cSeWG1xbq1l-V9lmz1"
-                  alt="Global Network Visualization"
+                  alt={lang === 'he' ? 'המחשה של רשת נסיעות עסקיות גלובלית' : 'Global corporate travel network visualization'}
                   fill
                   priority
                   className="object-cover rounded-full opacity-70 mix-blend-screen"

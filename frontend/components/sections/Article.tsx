@@ -1,20 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import GlassCard from '@/components/ui/GlassCard'
-import { getArticle } from '@/lib/api'
 import { Article as ArticleType } from '@/types'
 
-export default function Article() {
+export default function Article({ initialArticle }: { initialArticle: ArticleType | null }) {
   const { lang } = useLanguage()
-  const [article, setArticle] = useState<ArticleType | null>(null)
-
-  useEffect(() => {
-    getArticle().then((res) => {
-      if (res.success && res.data) setArticle(res.data)
-    })
-  }, [])
+  const article = initialArticle
 
   const title = article ? (lang === 'he' ? article.titleHe : article.titleEn) : ''
   const content = article ? (lang === 'he' ? article.contentHe : article.contentEn) : ''

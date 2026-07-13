@@ -15,7 +15,8 @@
       "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\guy42\\\\Documents\\\\INNERSKY\\\\frontend\\\\.next\" -ErrorAction SilentlyContinue)",
       "Bash(node -e \"const bcrypt = require\\('bcrypt'\\); bcrypt.hash\\('Adi@far1462', 10\\).then\\(h => console.log\\(h\\)\\);\")",
       "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
-      "Bash(node *)"
+      "Bash(node *)",
+      "WebFetch(domain:www.innersky.co.il)"
     ]
   }
 }
