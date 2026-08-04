@@ -1,6 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
+import { privacyContactEmail } from '@/lib/privacyContent'
 
 const navLinks = [
   { href: '#about', he: 'מי אנחנו', en: 'About' },
@@ -65,6 +67,20 @@ export default function Footer() {
           <p className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-widest mb-2">
             {lang === 'he' ? 'משפטי' : 'Legal'}
           </p>
+          <Link
+            href="/privacy"
+            className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+          >
+            {lang === 'he' ? 'מדיניות פרטיות' : 'Privacy Policy'}
+          </Link>
+          {privacyContactEmail && (
+            <a
+              href={`mailto:${privacyContactEmail}`}
+              className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+            >
+              {privacyContactEmail}
+            </a>
+          )}
         </div>
 
         <div className="md:col-span-3 mt-12 pt-12 border-t border-white/5 text-center">

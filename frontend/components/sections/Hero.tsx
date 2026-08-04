@@ -15,7 +15,9 @@ export default function Hero() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
         <div className="lg:col-span-6 z-10">
           <SectionBadge textClassName="text-[13px]">
-            {lang === 'he' ? 'מנוע נסיעות עסקיות מהדור הבא' : 'Next-Gen Travel Operations'}
+            {lang === 'he'
+              ? 'ניהול נסיעות שמייצר שליטה, יעילות וחיסכון'
+              : 'Travel management that drives control, efficiency and cost savings'}
           </SectionBadge>
 
           {lang === 'he' ? (
@@ -34,14 +36,16 @@ export default function Hero() {
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
               כאשר ארגון צומח, ניהול הנסיעות הופך למורכב יותר. אישורים, תקציבים, ספקים, מדיניות, מערכות
               וחוויית העובד הופכים לחלק בלתי נפרד מהפעילות העסקית. INNERSKY מסייעת לחברות לבנות, לנהל
-              ולשפר את מערך הנסיעות העסקיות שלהן באמצעות תהליכים, מדיניות, טכנולוגיה ובקרה.
+              ולשפר את מערך הנסיעות העסקיות שלהן באמצעות תהליכים, מדיניות, טכנולוגיה ובקרה, במטרה לצמצם
+              עלויות מיותרות ולמצות הזדמנויות לחיסכון.
             </p>
           ) : (
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
-              As organizations grow, travel becomes increasingly complex. Approvals, budgets, suppliers,
-              policies, systems and traveler experience all become critical components of business
-              operations. INNERSKY helps organizations build, manage and optimize their corporate travel
-              operations through governance, technology and operational excellence.
+              As organizations grow, business travel becomes more complex. Approvals, budgets, suppliers,
+              policy, systems and the employee experience all become integral parts of business
+              operations. INNERSKY helps companies build, manage and improve their corporate travel
+              programs through processes, policy, technology and control, with the goal of reducing
+              unnecessary costs and maximizing cost-saving opportunities.
             </p>
           )}
 

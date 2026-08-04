@@ -12,7 +12,7 @@ const processSteps = [
 const challenges = [
   { icon: 'sync_problem', he: 'חוסר אחידות בתהליך', en: 'Process Inconsistency' },
   { icon: 'policy', he: 'חריגות ממדיניות', en: 'Policy Non-Compliance' },
-  { icon: 'money_off', he: 'היעדר בקרה תקציבית', en: 'Lack of Budget Control' },
+  { icon: 'money_off', he: 'הוצאות בלתי מבוקרות ואובדן הזדמנויות לחיסכון', en: 'Uncontrolled spend and missed cost-saving opportunities' },
   { icon: 'pending_actions', he: 'עומס אדמיניסטרטיבי', en: 'Administrative Overload' },
   { icon: 'visibility_off', he: 'חוסר שקיפות', en: 'Lack of Visibility' },
   { icon: 'person_off', he: 'חוויית עובד לא עקבית', en: 'Inconsistent Experience' },
@@ -84,8 +84,8 @@ export default function Challenge() {
           style={{ fontSize: '28px', lineHeight: '1.3' }}
         >
           {lang === 'he'
-            ? 'זה הרגע שבו ניהול הנסיעות הופך לפונקציה ניהולית.'
-            : 'This is the moment when travel management becomes a management function.'}
+            ? 'זה הרגע שבו ניהול הנסיעות הופך לפונקציה ניהולית, וכאשר הוא מנוהל נכון, הוא הופך גם למנוע של חיסכון.'
+            : 'This is the point at which travel management becomes a business function and, when managed effectively, a driver of cost savings.'}
         </p>
       </div>
     </section>

@@ -1,31 +1,50 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import GlassCard from '@/components/ui/GlassCard'
 import Button from '@/components/ui/Button'
 import { sendContactMessage } from '@/lib/api'
+import { PRIVACY_POLICY_VERSION } from '@/lib/privacyContent'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
 export default function Contact() {
   const { lang } = useLanguage()
   const [status, setStatus] = useState<Status>('idle')
-  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', message: '' })
+  const [form, setForm] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    message: '',
+    consent: false,
+  })
 
-  const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((f) => ({ ...f, [field]: e.target.value }))
-  }
+  const handleChange = (field: 'name' | 'company' | 'email' | 'phone' | 'message') =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setForm((f) => ({ ...f, [field]: e.target.value }))
+    }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (!form.consent) return
     setStatus('loading')
 
     try {
-      const res = await sendContactMessage(form)
+      const res = await sendContactMessage({
+        name: form.name,
+        company: form.company,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+        consent: true,
+        privacyPolicyVersion: PRIVACY_POLICY_VERSION,
+      })
       if (res.success) {
         setStatus('success')
-        setForm({ name: '', company: '', email: '', phone: '', message: '' })
+        setForm({ name: '', company: '', email: '', phone: '', message: '', consent: false })
       } else {
         setStatus('error')
       }
@@ -41,8 +60,8 @@ export default function Contact() {
           <div className="lg:col-span-5">
             <h2 className="font-display-lg text-headline-md text-on-surface mb-6">
               {lang === 'he'
-                ? 'אם אתם מחפשים דרך לנהל את הנסיעות העסקיות שלכם בצורה מסודרת, מבוקרת ויעילה יותר — נשמח להכיר.'
-                : "If you're looking for a way to manage your corporate travel in a more structured and efficient way — let's talk."}
+                ? 'אם אתם רוצים להבין היכן תקציב הנסיעות שלכם מנוהל היטב, היכן הוא זולג ואיפה נמצאות הזדמנויות החיסכון, נשמח להכיר.'
+                : 'If you want to understand where your travel budget is well managed, where value is leaking and where the cost-saving opportunities are, we would be happy to talk.'}
             </h2>
           </div>
 
@@ -90,21 +109,61 @@ export default function Contact() {
                   className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50 resize-none"
                 />
 
-                <Button type="submit" variant="primary" disabled={status === 'loading'}>
+                <label className="flex items-start gap-3 text-body-sm text-on-surface-variant cursor-pointer">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={form.consent}
+                    onChange={(e) => setForm((f) => ({ ...f, consent: e.target.checked }))}
+                    className="mt-1 h-4 w-4 flex-shrink-0 accent-primary cursor-pointer"
+                    aria-label={lang === 'he' ? 'אישור מדיניות פרטיות' : 'Privacy policy consent'}
+                  />
+                  <span>
+                    {lang === 'he' ? (
+                      <>
+                        אני מאשר/ת שקראתי והסכמתי ל
+                        <Link
+                          href="/privacy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline hover:no-underline"
+                        >
+                          מדיניות הפרטיות
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        I confirm that I have read and agreed to the{' '}
+                        <Link
+                          href="/privacy"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline hover:no-underline"
+                        >
+                          Privacy Policy
+                        </Link>
+                      </>
+                    )}
+                  </span>
+                </label>
+
+                <Button type="submit" variant="primary" disabled={status === 'loading' || !form.consent}>
                   {status === 'loading'
                     ? lang === 'he' ? 'שולח...' : 'Sending...'
-                    : lang === 'he' ? 'שלח הודעה' : 'Send Message'}
+                    : lang === 'he' ? 'שליחת הפנייה' : 'Send Message'}
                 </Button>
 
                 <div aria-live="polite" aria-atomic="true">
                   {status === 'success' && (
                     <p className="text-primary font-body-md text-body-md">
-                      {lang === 'he' ? 'ההודעה נשלחה בהצלחה!' : 'Message sent successfully!'}
+                      {lang === 'he' ? 'תודה, פנייתך התקבלה. נחזור אליך בהקדם.' : 'Thank you, your message has been received. We will get back to you shortly.'}
                     </p>
                   )}
                   {status === 'error' && (
                     <p className="text-error font-body-md text-body-md">
-                      {lang === 'he' ? 'אירעה שגיאה. נסו שוב.' : 'Something went wrong. Please try again.'}
+                      {lang === 'he'
+                        ? 'לא הצלחנו לשלוח את הפנייה. אנא נסו שוב מאוחר יותר או פנו אלינו באמצעות פרטי הקשר המופיעים באתר.'
+                        : 'We could not send your message. Please try again later or contact us using the details on the site.'}
                     </p>
                   )}
                 </div>

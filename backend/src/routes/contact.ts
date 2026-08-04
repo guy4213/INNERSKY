@@ -10,16 +10,26 @@ const router = Router()
 
 router.post('/', contactLimiter, validate(contactSchema), async (req, res, next) => {
   try {
-    const { name, company, email, phone, message } = req.body as {
+    const { name, company, email, phone, message, privacyPolicyVersion } = req.body as {
       name: string
       company?: string
       email: string
       phone?: string
       message: string
+      consent: true
+      privacyPolicyVersion?: string
     }
 
     const submission = await prisma.contactSubmission.create({
-      data: { name, company, email, phone, message },
+      data: {
+        name,
+        company,
+        email,
+        phone,
+        message,
+        consentGivenAt: new Date(),
+        privacyPolicyVersion: privacyPolicyVersion ?? process.env.PRIVACY_POLICY_VERSION ?? '2026-08-03',
+      },
     })
 
     if (process.env.RESEND_API_KEY) {

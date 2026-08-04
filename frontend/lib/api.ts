@@ -61,6 +61,8 @@ export function sendContactMessage(data: {
   email: string
   phone?: string
   message: string
+  consent: true
+  privacyPolicyVersion: string
 }) {
   return request<ContactSubmission>('/api/contact', {
     method: 'POST',

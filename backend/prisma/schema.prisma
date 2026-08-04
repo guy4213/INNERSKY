@@ -27,13 +27,15 @@ model Product {
 }
 
 model ContactSubmission {
-  id        Int      @id @default(autoincrement())
-  name      String
-  company   String?
-  email     String
-  phone     String?
-  message   String
-  createdAt DateTime @default(now())
+  id                   Int      @id @default(autoincrement())
+  name                 String
+  company              String?
+  email                String
+  phone                String?
+  message              String
+  consentGivenAt       DateTime?
+  privacyPolicyVersion String?
+  createdAt            DateTime @default(now())
 }
 
 model Article {

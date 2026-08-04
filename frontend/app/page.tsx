@@ -2,6 +2,7 @@ import Navbar from '@/components/sections/Navbar'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Challenge from '@/components/sections/Challenge'
+import SavingsStrip from '@/components/sections/SavingsStrip'
 import Services from '@/components/sections/Services'
 import Values from '@/components/sections/Values'
 import CaseStudy from '@/components/sections/CaseStudy'
@@ -50,6 +51,7 @@ export default async function Home() {
         <Hero />
         <About />
         <Challenge />
+        <SavingsStrip />
         <Services />
         <Values />
         <CaseStudy />

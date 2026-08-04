@@ -16,7 +16,10 @@
       "Bash(node -e \"const bcrypt = require\\('bcrypt'\\); bcrypt.hash\\('Adi@far1462', 10\\).then\\(h => console.log\\(h\\)\\);\")",
       "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
       "Bash(node *)",
-      "WebFetch(domain:www.innersky.co.il)"
+      "WebFetch(domain:www.innersky.co.il)",
+      "PowerShell(Get-Content C:\\\\Users\\\\guy42\\\\Documents\\\\INNERSKY\\\\backend\\\\.env | Select-String -Pattern \"FRONTEND_URL|JWT_SECRET|DATABASE_URL\" | ForEach-Object { \\($_ -split '='\\)[0] + '=<set>' })",
+      "Bash(python -c \"import sys; print\\(sys.executable\\)\")",
+      "Bash(py --version)"
     ]
   }
 }

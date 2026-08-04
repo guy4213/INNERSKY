@@ -8,7 +8,9 @@ const results = [
   { he: 'אכיפה טובה יותר של מדיניות', en: 'Better policy enforcement' },
   { he: 'צמצום עומסים תפעוליים', en: 'Reduced operational overload' },
   { he: 'שיפור חוויית העובד', en: 'Improved employee experience' },
-  { he: 'בקרה טובה יותר על תקציבי נסיעות', en: 'Better control over travel budgets' },
+  { he: 'שיפור הבקרה על תקציבי הנסיעות', en: 'Improved control over travel budgets' },
+  { he: 'זיהוי מוקדי זליגה והזדמנויות לחיסכון', en: 'Identification of cost leakage and cost-saving opportunities' },
+  { he: 'צמצום הוצאות בלתי מתוכננות', en: 'Reduction of unplanned travel expenses' },
 ]
 
 export default function CaseStudy() {

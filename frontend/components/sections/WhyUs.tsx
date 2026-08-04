@@ -26,11 +26,18 @@ const reasons = [
     descEn: 'Process, policy, budget, suppliers and technology under one roof.',
   },
   {
+    icon: 'savings',
+    he: 'שליטה בעלויות וחיסכון',
+    en: 'Cost control and savings',
+    descHe: 'בקרה על ההוצאות, זיהוי חריגות ומיצוי הזדמנויות לחיסכון.',
+    descEn: 'Spend oversight, exception identification and maximization of cost-saving opportunities.',
+  },
+  {
     icon: 'expand',
-    he: 'פתרונות מדידים',
-    en: 'Measurable Solutions',
-    descHe: 'בניית תהליכים התומכים בצמיחה.',
-    descEn: 'Building measurable processes that support growth.',
+    he: 'תוצאות עסקיות מדידות',
+    en: 'Measurable business outcomes',
+    descHe: 'תהליכים המאפשרים למדוד ביצועים, לזהות זליגות ולשפר את עלויות הנסיעה לאורך זמן.',
+    descEn: 'Processes that enable performance measurement, leakage identification and continuous travel cost optimization.',
   },
 ]
 
