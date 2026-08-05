@@ -7,12 +7,12 @@ import { useLanguage } from '@/context/LanguageContext'
 import { getToken } from '@/lib/auth'
 
 const links = [
-  { href: '#about', he: 'מי אנחנו', en: 'About' },
-  { href: '#services', he: 'שירותים', en: 'Services' },
-  { href: '#values', he: 'למה InnerSky', en: 'Why InnerSky' },
-  { href: '#case-study', he: 'מקרה לדוגמה', en: 'Case Study' },
-  { href: '#products', he: 'מוצרים', en: 'Products' },
-  { href: '#contact', he: 'צור קשר', en: 'Contact' },
+  { href: '/#about', he: 'מי אנחנו', en: 'About' },
+  { href: '/#services', he: 'שירותים', en: 'Services' },
+  { href: '/#values', he: 'למה InnerSky', en: 'Why InnerSky' },
+  { href: '/#case-study', he: 'מקרה לדוגמה', en: 'Case Study' },
+  { href: '/#products', he: 'מוצרים', en: 'Products' },
+  { href: '/#contact', he: 'צור קשר', en: 'Contact' },
 ]
 
 export default function Navbar() {
@@ -102,7 +102,7 @@ export default function Navbar() {
           {langToggleBtn}
 
           <a
-            href="#contact"
+            href="/#contact"
             className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
           >
             {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
@@ -145,7 +145,7 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/#contact"
             onClick={() => setOpen(false)}
             className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider text-center glow-purple"
           >

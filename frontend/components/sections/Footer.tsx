@@ -5,12 +5,12 @@ import { useLanguage } from '@/context/LanguageContext'
 import { privacyContactEmail } from '@/lib/privacyContent'
 
 const navLinks = [
-  { href: '#about', he: 'מי אנחנו', en: 'About' },
-  { href: '#services', he: 'שירותים', en: 'Services' },
-  { href: '#values', he: 'יתרונות', en: 'Values' },
-  { href: '#case-study', he: 'Case Study', en: 'Case Study' },
-  { href: '#products', he: 'מוצרים', en: 'Products' },
-  { href: '#contact', he: 'צור קשר', en: 'Contact' },
+  { href: '/#about', he: 'מי אנחנו', en: 'About' },
+  { href: '/#services', he: 'שירותים', en: 'Services' },
+  { href: '/#values', he: 'יתרונות', en: 'Values' },
+  { href: '/#case-study', he: 'Case Study', en: 'Case Study' },
+  { href: '/#products', he: 'מוצרים', en: 'Products' },
+  { href: '/#contact', he: 'צור קשר', en: 'Contact' },
 ]
 
 export default function Footer() {
