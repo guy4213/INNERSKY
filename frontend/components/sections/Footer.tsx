@@ -2,19 +2,23 @@
 
 import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
+import { useSections } from '@/context/SectionsContext'
+import { SectionKey } from '@/lib/sectionKeys'
 import { privacyContactEmail } from '@/lib/privacyContent'
 
-const navLinks = [
-  { href: '/#about', he: 'מי אנחנו', en: 'About' },
-  { href: '/#services', he: 'שירותים', en: 'Services' },
-  { href: '/#values', he: 'יתרונות', en: 'Values' },
-  { href: '/#case-study', he: 'Case Study', en: 'Case Study' },
-  { href: '/#products', he: 'מוצרים', en: 'Products' },
-  { href: '/#contact', he: 'צור קשר', en: 'Contact' },
+const navLinks: Array<{ href: string; he: string; en: string; section: SectionKey }> = [
+  { href: '/#about', he: 'מי אנחנו', en: 'About', section: 'about' },
+  { href: '/#services', he: 'שירותים', en: 'Services', section: 'services' },
+  { href: '/#values', he: 'יתרונות', en: 'Values', section: 'values' },
+  { href: '/#case-study', he: 'Case Study', en: 'Case Study', section: 'case-study' },
+  { href: '/#products', he: 'מוצרים', en: 'Products', section: 'products' },
+  { href: '/#contact', he: 'צור קשר', en: 'Contact', section: 'contact' },
 ]
 
 export default function Footer() {
   const { lang } = useLanguage()
+  const { visibility } = useSections()
+  const visibleLinks = navLinks.filter((l) => visibility[l.section])
 
   return (
     <footer className="w-full py-20 border-t border-white/5 bg-surface-container-lowest">
@@ -52,7 +56,7 @@ export default function Footer() {
           <p className="font-label-sm text-label-sm text-primary uppercase font-bold tracking-widest mb-2">
             {lang === 'he' ? 'ניווט מהיר' : 'Quick Links'}
           </p>
-          {navLinks.map((link) => (
+          {visibleLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}

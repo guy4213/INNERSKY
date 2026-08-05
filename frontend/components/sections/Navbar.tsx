@@ -5,22 +5,28 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
+import { useSections } from '@/context/SectionsContext'
+import { SectionKey } from '@/lib/sectionKeys'
 import { getToken } from '@/lib/auth'
 
-const links = [
-  { href: '/#about', he: 'מי אנחנו', en: 'About' },
-  { href: '/#services', he: 'שירותים', en: 'Services' },
-  { href: '/#values', he: 'למה InnerSky', en: 'Why InnerSky' },
-  { href: '/#case-study', he: 'מקרה לדוגמה', en: 'Case Study' },
-  { href: '/#products', he: 'מוצרים', en: 'Products' },
-  { href: '/#contact', he: 'צור קשר', en: 'Contact' },
+const links: Array<{ href: string; he: string; en: string; section: SectionKey }> = [
+  { href: '/#about', he: 'מי אנחנו', en: 'About', section: 'about' },
+  { href: '/#services', he: 'שירותים', en: 'Services', section: 'services' },
+  { href: '/#values', he: 'למה InnerSky', en: 'Why InnerSky', section: 'values' },
+  { href: '/#case-study', he: 'מקרה לדוגמה', en: 'Case Study', section: 'case-study' },
+  { href: '/#products', he: 'מוצרים', en: 'Products', section: 'products' },
+  { href: '/#contact', he: 'צור קשר', en: 'Contact', section: 'contact' },
 ]
 
 export default function Navbar() {
   const { lang, toggle } = useLanguage()
+  const { visibility } = useSections()
   const [open, setOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   const router = useRouter()
+
+  const visibleLinks = links.filter((l) => visibility[l.section])
+  const showContactCta = visibility.contact
 
   useEffect(() => {
     setIsAdmin(!!getToken())
@@ -77,7 +83,7 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-8">
-          {links.map((link) => (
+          {visibleLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -102,12 +108,14 @@ export default function Navbar() {
 
           {langToggleBtn}
 
-          <Link
-            href="/#contact"
-            className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
-          >
-            {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
-          </Link>
+          {showContactCta && (
+            <Link
+              href="/#contact"
+              className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
+            >
+              {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
+            </Link>
+          )}
         </div>
       </div>
 
@@ -135,7 +143,7 @@ export default function Navbar() {
 
       {open && (
         <div className="md:hidden flex flex-col gap-4 px-6 pb-6 bg-surface/95">
-          {links.map((link) => (
+          {visibleLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -145,13 +153,15 @@ export default function Navbar() {
               {lang === 'he' ? link.he : link.en}
             </Link>
           ))}
-          <Link
-            href="/#contact"
-            onClick={() => setOpen(false)}
-            className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider text-center glow-purple"
-          >
-            {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
-          </Link>
+          {showContactCta && (
+            <Link
+              href="/#contact"
+              onClick={() => setOpen(false)}
+              className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider text-center glow-purple"
+            >
+              {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
+            </Link>
+          )}
           {isAdmin && (
             <Link
               href="/admin"

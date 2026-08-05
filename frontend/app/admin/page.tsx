@@ -101,7 +101,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <h2 className="font-headline-md text-headline-md mb-6">סקציות באתר</h2>
+      <h2 className="font-headline-md text-headline-md mb-6">סקשנים באתר</h2>
       <div className="mb-16">
         <SectionsPanel />
       </div>

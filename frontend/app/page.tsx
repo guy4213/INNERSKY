@@ -12,7 +12,8 @@ import Article from '@/components/sections/Article'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 import { Article as ArticleType, Product } from '@/types'
-import { SectionSetting, toVisibilityMap } from '@/lib/sectionKeys'
+import { toVisibilityMap } from '@/lib/sectionKeys'
+import { fetchSections } from '@/lib/fetchSections'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,18 +35,6 @@ async function fetchArticle(): Promise<ArticleType | null> {
   if (!API_URL) return null
   try {
     const res = await fetch(`${API_URL}/api/article`, { next: { revalidate: 3600 } })
-    if (!res.ok) return null
-    const json = await res.json()
-    return json.success && json.data ? json.data : null
-  } catch {
-    return null
-  }
-}
-
-async function fetchSections(): Promise<SectionSetting[] | null> {
-  if (!API_URL) return null
-  try {
-    const res = await fetch(`${API_URL}/api/sections`, { cache: 'no-store' })
     if (!res.ok) return null
     const json = await res.json()
     return json.success && json.data ? json.data : null

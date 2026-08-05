@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { SectionsProvider } from '@/context/SectionsContext'
+import { fetchSections } from '@/lib/fetchSections'
 import MeshBackground from '@/components/ui/MeshBackground'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import './globals.css'
@@ -73,7 +75,8 @@ const organizationSchema = {
   ],
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const initialSections = await fetchSections()
   return (
     <html lang="he" dir="rtl" className="dark">
       <head>
@@ -94,10 +97,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-gradient-main font-rubik">
         <LanguageProvider>
-          <MeshBackground />
-          <ErrorBoundary>
-            {children}
-          </ErrorBoundary>
+          <SectionsProvider initialSections={initialSections}>
+            <MeshBackground />
+            <ErrorBoundary>
+              {children}
+            </ErrorBoundary>
+          </SectionsProvider>
         </LanguageProvider>
       </body>
     </html>
