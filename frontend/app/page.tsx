@@ -14,7 +14,7 @@ import Footer from '@/components/sections/Footer'
 import { Article as ArticleType, Product } from '@/types'
 import { SectionSetting, toVisibilityMap } from '@/lib/sectionKeys'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
 
