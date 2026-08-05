@@ -31,6 +31,11 @@ export const articleUpdateSchema = z.object({
   visible: z.boolean().optional(),
 })
 
+export const submissionUpdateSchema = z.object({
+  status: z.enum(['new', 'in_progress', 'handled', 'closed']).optional(),
+  notes: z.string().max(2000).nullable().optional(),
+})
+
 export const serviceUpdateSchema = z.object({
   titleHe: z.string().max(200).optional(),
   titleEn: z.string().max(200).optional(),

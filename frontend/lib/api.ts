@@ -99,6 +99,32 @@ export function getSubmissions() {
   })
 }
 
+export function updateSubmission(id: number, data: { status?: string; notes?: string | null }) {
+  return request<ContactSubmission>(`/api/admin/submissions/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify(data),
+  })
+}
+
+export async function downloadSubmissionsCsv() {
+  const res = await fetch(`${API_URL}/api/admin/submissions/export.csv`, {
+    headers: authHeaders(),
+  })
+  if (!res.ok) throw new Error('Export failed')
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  const disposition = res.headers.get('Content-Disposition') ?? ''
+  const match = disposition.match(/filename="?([^"]+)"?/)
+  link.download = match?.[1] ?? `innersky-submissions-${new Date().toISOString().slice(0, 10)}.csv`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
 export function getArticle() {
   return request<Article>('/api/article', { headers: authHeaders() })
 }

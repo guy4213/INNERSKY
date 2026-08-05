@@ -10,6 +10,8 @@ export interface Product {
   updatedAt: string
 }
 
+export type SubmissionStatus = 'new' | 'in_progress' | 'handled' | 'closed'
+
 export interface ContactSubmission {
   id: number
   name: string
@@ -17,6 +19,10 @@ export interface ContactSubmission {
   email: string
   phone: string | null
   message: string
+  status: SubmissionStatus
+  notes: string | null
+  consentGivenAt: string | null
+  privacyPolicyVersion: string | null
   createdAt: string
 }
 

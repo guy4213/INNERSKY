@@ -8,7 +8,7 @@ import ProductEditor from '@/components/admin/ProductEditor'
 import ServiceEditor from '@/components/admin/ServiceEditor'
 import ArticleEditor from '@/components/admin/ArticleEditor'
 import SectionsPanel from '@/components/admin/SectionsPanel'
-import GlassCard from '@/components/ui/GlassCard'
+import SubmissionsPanel from '@/components/admin/SubmissionsPanel'
 import { Article, ContactSubmission, Product, Service } from '@/types'
 
 export default function AdminPage() {
@@ -155,36 +155,15 @@ export default function AdminPage() {
         </>
       )}
 
-      <h2 className="font-headline-md text-headline-md mb-6">פניות מטופס יצירת קשר</h2>
-      <GlassCard className="overflow-x-auto">
-        <table className="w-full text-right">
-          <thead>
-            <tr className="border-b border-outline/20 font-label-sm text-label-sm uppercase text-on-surface-variant">
-              <th className="py-3 px-2">שם</th>
-              <th className="py-3 px-2">חברה</th>
-              <th className="py-3 px-2">אימייל</th>
-              <th className="py-3 px-2">טלפון</th>
-              <th className="py-3 px-2">הודעה</th>
-              <th className="py-3 px-2">תאריך</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((submission) => (
-              <tr key={submission.id} className="border-b border-outline/10 font-body-md text-body-md text-on-surface-variant">
-                <td className="py-3 px-2">{submission.name}</td>
-                <td className="py-3 px-2">{submission.company ?? '-'}</td>
-                <td className="py-3 px-2">{submission.email}</td>
-                <td className="py-3 px-2">{submission.phone ?? '-'}</td>
-                <td className="py-3 px-2 max-w-xs truncate">{submission.message}</td>
-                <td className="py-3 px-2">{new Date(submission.createdAt).toLocaleDateString('he-IL')}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {submissions.length === 0 && (
-          <p className="text-on-surface-variant text-center py-6">אין פניות עדיין</p>
+      <div className="flex items-center gap-3 mb-6">
+        <h2 className="font-headline-md text-headline-md">פניות מטופס יצירת קשר</h2>
+        {submissions.filter((s) => s.status === 'new').length > 0 && (
+          <span className="bg-electric text-white text-label-sm font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+            {submissions.filter((s) => s.status === 'new').length} חדשות
+          </span>
         )}
-      </GlassCard>
+      </div>
+      <SubmissionsPanel initial={submissions} onChange={setSubmissions} />
     </main>
   )
 }
