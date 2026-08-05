@@ -7,6 +7,7 @@ import { clearToken, getToken } from '@/lib/auth'
 import ProductEditor from '@/components/admin/ProductEditor'
 import ServiceEditor from '@/components/admin/ServiceEditor'
 import ArticleEditor from '@/components/admin/ArticleEditor'
+import SectionsPanel from '@/components/admin/SectionsPanel'
 import GlassCard from '@/components/ui/GlassCard'
 import { Article, ContactSubmission, Product, Service } from '@/types'
 
@@ -98,6 +99,11 @@ export default function AdminPage() {
             התנתק
           </button>
         </div>
+      </div>
+
+      <h2 className="font-headline-md text-headline-md mb-6">סקציות באתר</h2>
+      <div className="mb-16">
+        <SectionsPanel />
       </div>
 
       <div className="flex justify-between items-center mb-6">

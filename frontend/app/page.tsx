@@ -12,6 +12,7 @@ import Article from '@/components/sections/Article'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 import { Article as ArticleType, Product } from '@/types'
+import { SectionSetting, toVisibilityMap } from '@/lib/sectionKeys'
 
 export const revalidate = 3600
 
@@ -41,24 +42,41 @@ async function fetchArticle(): Promise<ArticleType | null> {
   }
 }
 
+async function fetchSections(): Promise<SectionSetting[] | null> {
+  if (!API_URL) return null
+  try {
+    const res = await fetch(`${API_URL}/api/sections`, { next: { revalidate: 3600 } })
+    if (!res.ok) return null
+    const json = await res.json()
+    return json.success && json.data ? json.data : null
+  } catch {
+    return null
+  }
+}
+
 export default async function Home() {
-  const [products, article] = await Promise.all([fetchProducts(), fetchArticle()])
+  const [products, article, sections] = await Promise.all([
+    fetchProducts(),
+    fetchArticle(),
+    fetchSections(),
+  ])
+  const visible = toVisibilityMap(sections)
 
   return (
     <>
       <Navbar />
       <main role="main">
-        <Hero />
-        <About />
-        <Challenge />
-        <SavingsStrip />
-        <Services />
-        <Values />
-        <CaseStudy />
-        <WhyUs />
-        <Products initialProducts={products} />
-        <Article initialArticle={article} />
-        <Contact />
+        {visible.hero && <Hero />}
+        {visible.about && <About />}
+        {visible.challenge && <Challenge />}
+        {visible['savings-strip'] && <SavingsStrip />}
+        {visible.services && <Services />}
+        {visible.values && <Values />}
+        {visible['case-study'] && <CaseStudy />}
+        {visible['why-us'] && <WhyUs />}
+        {visible.products && <Products initialProducts={products} />}
+        {visible.article && <Article initialArticle={article} />}
+        {visible.contact && <Contact />}
       </main>
       <Footer />
     </>

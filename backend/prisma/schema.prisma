@@ -49,6 +49,13 @@ model Article {
   updatedAt DateTime @updatedAt
 }
 
+model SectionSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  visible   Boolean  @default(true)
+  updatedAt DateTime @updatedAt
+}
+
 model Service {
   id         Int      @id @default(autoincrement())
   icon       String   @default("assignment")

@@ -1,4 +1,5 @@
 import { ApiResponse, Article, ContactSubmission, Product, Service } from '@/types'
+import type { SectionSetting } from './sectionKeys'
 import { getToken } from './auth'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -119,5 +120,17 @@ export function updateService(id: number, data: Partial<Service>) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...authHeaders() },
     body: JSON.stringify(data),
+  })
+}
+
+export function getSections() {
+  return request<SectionSetting[]>('/api/sections')
+}
+
+export function updateSection(key: string, visible: boolean) {
+  return request<SectionSetting>(`/api/sections/${key}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ visible }),
   })
 }

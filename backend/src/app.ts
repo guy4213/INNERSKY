@@ -8,6 +8,7 @@ import articleRoutes from './routes/article'
 import contactRoutes from './routes/contact'
 import uploadRoutes from './routes/upload'
 import adminRoutes from './routes/admin'
+import sectionsRoutes from './routes/sections'
 import { errorHandler } from './middleware/errorHandler'
 import { prisma } from './lib/db'
 
@@ -39,6 +40,7 @@ app.use('/api/article', articleRoutes)
 app.use('/api/contact', contactRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/sections', sectionsRoutes)
 app.use(errorHandler)
 
 export default app
