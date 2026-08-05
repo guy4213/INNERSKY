@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import { getToken } from '@/lib/auth'
@@ -64,7 +65,7 @@ export default function Navbar() {
     >
       {/* Desktop bar */}
       <div className="hidden md:flex justify-between items-center w-full px-10 h-20 max-w-[1440px] mx-auto">
-        <a href="/">
+        <Link href="/">
           <Image
             src="/logo.png"
             alt="InnerSky"
@@ -73,40 +74,40 @@ export default function Navbar() {
             style={{ height: '200px', width: '280px' }}
             priority
           />
-        </a>
+        </Link>
 
         <div className="flex items-center gap-8">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200"
             >
               {lang === 'he' ? link.he : link.en}
-            </a>
+            </Link>
           ))}
         </div>
 
         <div className="flex items-center gap-4">
           {isAdmin && (
-            <a
+            <Link
               href="/admin"
               aria-label="Admin panel"
               className="inline-flex items-center gap-1.5 border border-primary/30 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:bg-primary/10 transition-all"
             >
               <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>admin_panel_settings</span>
               Admin
-            </a>
+            </Link>
           )}
 
           {langToggleBtn}
 
-          <a
+          <Link
             href="/#contact"
             className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider hover:scale-105 transition-transform glow-purple"
           >
             {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -116,7 +117,7 @@ export default function Navbar() {
           {hamburgerBtn}
         </div>
         <div className="flex justify-center">
-          <a href="/">
+          <Link href="/">
             <Image
               src="/logo.png"
               alt="InnerSky"
@@ -125,7 +126,7 @@ export default function Navbar() {
               style={{ height: '90px', width: '180px' }}
               priority
             />
-          </a>
+          </Link>
         </div>
         <div className="flex justify-end">
           {langToggleBtn}
@@ -135,29 +136,29 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden flex flex-col gap-4 px-6 pb-6 bg-surface/95">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
               className="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200"
             >
               {lang === 'he' ? link.he : link.en}
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/#contact"
             onClick={() => setOpen(false)}
             className="bg-electric text-white px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider text-center glow-purple"
           >
             {lang === 'he' ? 'קבע שיחה' : "Let's Talk"}
-          </a>
+          </Link>
           {isAdmin && (
-            <a
+            <Link
               href="/admin"
               className="border border-primary/30 text-primary px-6 py-2 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-wider text-center"
             >
               Admin
-            </a>
+            </Link>
           )}
         </div>
       )}

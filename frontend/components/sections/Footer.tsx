@@ -53,13 +53,13 @@ export default function Footer() {
             {lang === 'he' ? 'ניווט מהיר' : 'Quick Links'}
           </p>
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
             >
               {lang === 'he' ? link.he : link.en}
-            </a>
+            </Link>
           ))}
         </div>
 

@@ -61,7 +61,8 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-electric text-white px-6 py-3 rounded-full font-label-sm text-label-sm font-bold uppercase tracking-widest hover:scale-105 transition-all glow-purple"
+            style={{ fontFamily: 'Arial, sans-serif' }}
+            className="bg-electric text-white px-6 py-3 rounded-full text-label-sm font-bold uppercase tracking-widest hover:scale-105 transition-all glow-purple"
           >
             {loading ? 'מתחבר...' : 'התחבר'}
           </button>

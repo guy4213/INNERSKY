@@ -1,16 +1,21 @@
 import { Router } from 'express'
-import { requireAuth } from '../middleware/auth'
+import { requireAuth, optionalAuth } from '../middleware/auth'
 import { validate } from '../middleware/validate'
 import { uploadLimiter } from '../middleware/rateLimiters'
 import { productUpdateSchema } from '../validators'
 import { prisma } from '../lib/db'
 import { upload, uploadImageBuffer } from './upload'
+import { AuthRequest } from '../types'
 
 const router = Router()
 
-router.get('/', async (req, res, next) => {
+router.get('/', optionalAuth, async (req: AuthRequest, res, next) => {
   try {
-    const products = await prisma.product.findMany({ orderBy: { orderIndex: 'asc' } })
+    const isAdmin = !!req.user
+    const products = await prisma.product.findMany({
+      where: isAdmin ? undefined : { visible: true },
+      orderBy: { orderIndex: 'asc' },
+    })
     res.json({ success: true, data: products })
   } catch (err) {
     next(err)
@@ -42,11 +47,11 @@ router.delete('/:id', requireAuth, async (req, res, next) => {
 router.put('/:id', requireAuth, validate(productUpdateSchema), async (req, res, next) => {
   try {
     const id = Number(req.params.id)
-    const { nameHe, nameEn, descriptionHe, descriptionEn } = req.body
+    const { nameHe, nameEn, descriptionHe, descriptionEn, visible } = req.body
 
     const product = await prisma.product.update({
       where: { id },
-      data: { nameHe, nameEn, descriptionHe, descriptionEn },
+      data: { nameHe, nameEn, descriptionHe, descriptionEn, visible },
     })
 
     res.json({ success: true, data: product })

@@ -6,6 +6,7 @@ export interface Product {
   descriptionEn: string
   imageUrl: string
   orderIndex: number
+  visible: boolean
   updatedAt: string
 }
 
@@ -33,6 +34,7 @@ export interface Article {
   titleEn: string
   contentHe: string
   contentEn: string
+  visible: boolean
   updatedAt: string
 }
 
@@ -50,5 +52,6 @@ export interface Service {
   resultEn: string
   featured: boolean
   orderIndex: number
+  visible: boolean
   updatedAt: string
 }

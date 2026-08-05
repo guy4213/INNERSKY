@@ -23,6 +23,7 @@ model Product {
   descriptionEn String   @default("")
   imageUrl      String   @default("")
   orderIndex    Int      @default(0)
+  visible       Boolean  @default(true)
   updatedAt     DateTime @updatedAt
 }
 
@@ -44,6 +45,7 @@ model Article {
   titleEn   String   @default("")
   contentHe String   @default("")
   contentEn String   @default("")
+  visible   Boolean  @default(true)
   updatedAt DateTime @updatedAt
 }
 
@@ -61,5 +63,6 @@ model Service {
   resultEn   String   @default("")
   featured   Boolean  @default(false)
   orderIndex Int      @default(0)
+  visible    Boolean  @default(true)
   updatedAt  DateTime @updatedAt
 }

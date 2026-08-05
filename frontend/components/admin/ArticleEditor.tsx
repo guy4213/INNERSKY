@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import GlassCard from '@/components/ui/GlassCard'
+import VisibilityToggle from './VisibilityToggle'
 import { updateArticle } from '@/lib/api'
 import { Article } from '@/types'
 
@@ -19,6 +20,7 @@ export default function ArticleEditor({
     titleEn: article.titleEn,
     contentHe: article.contentHe,
     contentEn: article.contentEn,
+    visible: article.visible,
   })
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle')
 
@@ -59,6 +61,11 @@ export default function ArticleEditor({
         placeholder="Article content (English)"
         rows={10}
         className={`${inputCls} resize-y`}
+      />
+
+      <VisibilityToggle
+        visible={form.visible}
+        onChange={(next) => setForm((f) => ({ ...f, visible: next }))}
       />
 
       <button

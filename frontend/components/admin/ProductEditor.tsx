@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import GlassCard from '@/components/ui/GlassCard'
 import ImageUploader from './ImageUploader'
+import VisibilityToggle from './VisibilityToggle'
 import { updateProduct, deleteProduct } from '@/lib/api'
 import { Product } from '@/types'
 
@@ -20,6 +21,7 @@ export default function ProductEditor({
     nameEn: product.nameEn,
     descriptionHe: product.descriptionHe,
     descriptionEn: product.descriptionEn,
+    visible: product.visible,
   })
   const [imageUrl, setImageUrl] = useState(product.imageUrl)
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error' | 'deleting'>('idle')
@@ -103,6 +105,11 @@ export default function ProductEditor({
         placeholder="Description (English)"
         rows={3}
         className="bg-surface-container border border-outline/20 rounded-lg px-4 py-3 text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50 resize-none"
+      />
+
+      <VisibilityToggle
+        visible={form.visible}
+        onChange={(next) => setForm((f) => ({ ...f, visible: next }))}
       />
 
       <button

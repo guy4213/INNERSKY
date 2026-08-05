@@ -33,7 +33,7 @@ export function verifyToken() {
 }
 
 export function getProducts() {
-  return request<Product[]>('/api/products')
+  return request<Product[]>('/api/products', { headers: authHeaders() })
 }
 
 export function updateProduct(id: number, data: Partial<Product>) {
@@ -99,7 +99,7 @@ export function getSubmissions() {
 }
 
 export function getArticle() {
-  return request<Article>('/api/article')
+  return request<Article>('/api/article', { headers: authHeaders() })
 }
 
 export function updateArticle(id: number, data: Partial<Article>) {
@@ -111,7 +111,7 @@ export function updateArticle(id: number, data: Partial<Article>) {
 }
 
 export function getServices() {
-  return request<Service[]>('/api/services')
+  return request<Service[]>('/api/services', { headers: authHeaders() })
 }
 
 export function updateService(id: number, data: Partial<Service>) {

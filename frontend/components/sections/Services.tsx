@@ -16,6 +16,7 @@ const fallbackServices: Service[] = [
     includesEn: 'Processes,Policy,Suppliers,Budgets,Systems,Accountability structure',
     resultHe: 'תוצר: דו"ח מסודר המציג פערים, סיכונים, מוקדי זליגה והזדמנויות לחיסכון ולשיפור.',
     resultEn: 'Deliverable: A structured report identifying gaps, risks, sources of cost leakage and opportunities for improvement and cost savings.',
+    visible: true,
     updatedAt: '',
   },
   {
@@ -27,6 +28,7 @@ const fallbackServices: Service[] = [
     includesEn: 'Workflows,Travel policy,Approval processes,Budget control,Supplier management,Employee experience',
     resultHe: 'תוצר: מודל עבודה מדיד ובר קיימא, המשפר את השליטה בהוצאות ומאפשר צמצום עלויות מיותרות וחיסכון לאורך זמן.',
     resultEn: 'Deliverable: A measurable, sustainable operating model that improves spend control, reduces unnecessary costs and enables long-term savings.',
+    visible: true,
     updatedAt: '',
   },
   {
@@ -37,6 +39,7 @@ const fallbackServices: Service[] = [
     includesHe: 'ניהול תהליך,אכיפת מדיניות,עבודה מול ספקים,בקרה תקציבית,תמיכה לעובדים,דוחות ובקרות,זיהוי שוטף של מוקדי זליגה והזדמנויות לחיסכון',
     includesEn: 'Process management,Policy enforcement,Supplier relations,Budget control,Employee support,Reports & controls,Ongoing identification of cost leakage and cost-saving opportunities',
     resultHe: '', resultEn: '',
+    visible: true,
     updatedAt: '',
   },
 ]
@@ -47,11 +50,13 @@ export default function Services() {
 
   useEffect(() => {
     getServices().then((res) => {
-      if (res.success && res.data && res.data.length > 0) {
+      if (res.success && res.data) {
         setServices(res.data)
       }
     })
   }, [])
+
+  if (services.length === 0) return null
 
   return (
     <section id="services" className="py-section-gap">

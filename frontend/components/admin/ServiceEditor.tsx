@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import GlassCard from '@/components/ui/GlassCard'
+import VisibilityToggle from './VisibilityToggle'
 import { updateService } from '@/lib/api'
 import { Service } from '@/types'
 
@@ -23,6 +24,7 @@ export default function ServiceEditor({
     includesEn: service.includesEn,
     resultHe: service.resultHe,
     resultEn: service.resultEn,
+    visible: service.visible,
   })
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle')
 
@@ -72,6 +74,11 @@ export default function ServiceEditor({
 
       <input value={form.resultHe} onChange={handleChange('resultHe')} placeholder="תוצר (עברית)" className={inputCls} />
       <input value={form.resultEn} onChange={handleChange('resultEn')} placeholder="Result (English)" className={inputCls} />
+
+      <VisibilityToggle
+        visible={form.visible}
+        onChange={(next) => setForm((f) => ({ ...f, visible: next }))}
+      />
 
       <button
         onClick={handleSave}
