@@ -10,7 +10,7 @@ export const contactSchema = z.object({
   company: z.string().max(100).optional(),
   email: z.string().email(),
   phone: z.string().regex(/^[+\d\s\-().]{0,20}$/).optional().or(z.literal('')),
-  message: z.string().min(10).max(2000),
+  message: z.string().min(3).max(2000),
   consent: z.literal(true),
   privacyPolicyVersion: z.string().max(50).optional(),
 })
