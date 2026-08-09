@@ -24,10 +24,10 @@ export const productUpdateSchema = z.object({
 })
 
 export const articleUpdateSchema = z.object({
-  titleHe: z.string().max(300).optional(),
-  titleEn: z.string().max(300).optional(),
-  contentHe: z.string().max(10000).optional(),
-  contentEn: z.string().max(10000).optional(),
+  titleHe: z.string().optional(),
+  titleEn: z.string().optional(),
+  contentHe: z.string().optional(),
+  contentEn: z.string().optional(),
   visible: z.boolean().optional(),
 })
 

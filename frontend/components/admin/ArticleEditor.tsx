@@ -23,6 +23,7 @@ export default function ArticleEditor({
     visible: article.visible,
   })
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState<string>('')
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [field]: e.target.value }))
@@ -30,6 +31,7 @@ export default function ArticleEditor({
 
   const handleSave = async () => {
     setStatus('saving')
+    setErrorMsg('')
     try {
       const res = await updateArticle(article.id, form)
       if (res.success && res.data) {
@@ -37,9 +39,11 @@ export default function ArticleEditor({
         onUpdated(res.data)
       } else {
         setStatus('error')
+        setErrorMsg(res.error || 'שמירה נכשלה')
       }
-    } catch {
+    } catch (e) {
       setStatus('error')
+      setErrorMsg(e instanceof Error ? e.message : 'שמירה נכשלה')
     }
   }
 
@@ -77,7 +81,7 @@ export default function ArticleEditor({
       </button>
 
       {status === 'success' && <p className="text-primary text-sm">נשמר בהצלחה!</p>}
-      {status === 'error' && <p className="text-error text-sm">שגיאה.</p>}
+      {status === 'error' && <p className="text-error text-sm">שגיאה: {errorMsg}</p>}
     </GlassCard>
   )
 }
