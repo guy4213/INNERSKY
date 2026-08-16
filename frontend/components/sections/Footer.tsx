@@ -88,8 +88,9 @@ export default function Footer() {
         </div>
 
         <div className="md:col-span-3 mt-12 pt-12 border-t border-white/5 text-center">
-          <p className="font-label-sm text-label-sm text-on-surface-variant">
-            © 2025 InnerSky. All rights reserved.
+          <p className="font-label-sm text-label-sm text-on-surface-variant" suppressHydrationWarning>
+            © {new Date().getFullYear()} InnerSky.{' '}
+            {lang === 'he' ? 'כל הזכויות שמורות.' : 'All rights reserved.'}
           </p>
         </div>
       </div>
