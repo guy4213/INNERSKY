@@ -32,19 +32,31 @@ router.post('/', contactLimiter, validate(contactSchema), async (req, res, next)
       },
     })
 
+    // The submission is already persisted, so a mail failure must not fail the
+    // request - the visitor would re-submit and create duplicate rows.
     if (process.env.RESEND_API_KEY) {
-      await resend.emails.send({
-        from: 'InnerSky <onboarding@resend.dev>',
-        to: RESEND_TO_EMAIL,
-        subject: `New contact form submission from ${escapeHtml(name)}`,
-        html: `
-          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Company:</strong> ${escapeHtml(company ?? '-')}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          <p><strong>Phone:</strong> ${escapeHtml(phone ?? '-')}</p>
-          <p><strong>Message:</strong> ${escapeHtml(message)}</p>
-        `,
-      })
+      try {
+        const { error: mailError } = await resend.emails.send({
+          from: process.env.RESEND_FROM_EMAIL ?? 'InnerSky <onboarding@resend.dev>',
+          to: RESEND_TO_EMAIL,
+          subject: `New contact form submission from ${escapeHtml(name)}`,
+          html: `
+            <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+            <p><strong>Company:</strong> ${escapeHtml(company ?? '-')}</p>
+            <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+            <p><strong>Phone:</strong> ${escapeHtml(phone ?? '-')}</p>
+            <p><strong>Message:</strong> ${escapeHtml(message)}</p>
+          `,
+        })
+
+        // The SDK reports API errors on the response rather than throwing, so an
+        // unverified domain or a mistyped recipient would otherwise pass silently.
+        if (mailError) {
+          console.error(`[contact] email rejected for submission ${submission.id}:`, mailError)
+        }
+      } catch (mailError) {
+        console.error(`[contact] email failed for submission ${submission.id}:`, mailError)
+      }
     }
 
     res.json({ success: true, data: submission })
