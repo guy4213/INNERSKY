@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { prisma } from '../lib/db'
-import { resend, RESEND_TO_EMAIL } from '../lib/resend'
+import { mailer, MAIL_FROM, MAIL_TO, isMailConfigured } from '../lib/mailer'
 import { escapeHtml } from '../lib/sanitize'
 import { validate } from '../middleware/validate'
 import { contactLimiter } from '../middleware/rateLimiters'
@@ -34,12 +34,14 @@ router.post('/', contactLimiter, validate(contactSchema), async (req, res, next)
 
     // The submission is already persisted, so a mail failure must not fail the
     // request - the visitor would re-submit and create duplicate rows.
-    if (process.env.RESEND_API_KEY) {
+    if (isMailConfigured) {
       try {
-        const { error: mailError } = await resend.emails.send({
-          from: process.env.RESEND_FROM_EMAIL ?? 'InnerSky <onboarding@resend.dev>',
-          to: RESEND_TO_EMAIL,
-          subject: `New contact form submission from ${escapeHtml(name)}`,
+        await mailer.sendMail({
+          from: MAIL_FROM,
+          to: MAIL_TO,
+          // Lets the recipient reply straight to the lead.
+          replyTo: email,
+          subject: `New contact form submission from ${name}`,
           html: `
             <p><strong>Name:</strong> ${escapeHtml(name)}</p>
             <p><strong>Company:</strong> ${escapeHtml(company ?? '-')}</p>
@@ -48,12 +50,6 @@ router.post('/', contactLimiter, validate(contactSchema), async (req, res, next)
             <p><strong>Message:</strong> ${escapeHtml(message)}</p>
           `,
         })
-
-        // The SDK reports API errors on the response rather than throwing, so an
-        // unverified domain or a mistyped recipient would otherwise pass silently.
-        if (mailError) {
-          console.error(`[contact] email rejected for submission ${submission.id}:`, mailError)
-        }
       } catch (mailError) {
         console.error(`[contact] email failed for submission ${submission.id}:`, mailError)
       }
