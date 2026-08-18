@@ -35,7 +35,7 @@ export default function Footer() {
               <a href="tel:+972545224011" className="hover:text-primary transition-colors">054-522-4011</a>
             </div>
             <div>
-              <a href="mailto:adi.frahoudi@innersky.co.il" className="hover:text-primary transition-colors">adi.frahoudi@innersky.co.il</a>
+              <a href="mailto:adi.farhoudi@innersky.co.il" className="hover:text-primary transition-colors">adi.farhoudi@innersky.co.il</a>
             </div>
             <div>{lang === 'he' ? 'רמת פולג, נתניה' : 'Ramat Poleg, Netanya'}</div>
           </address>

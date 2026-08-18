@@ -53,7 +53,7 @@ const organizationSchema = {
   description: 'ניהול, תפעול וייעוץ אסטרטגי לנסיעות עסקיות בארגונים',
   url: siteUrl,
   telephone: '+972-54-522-4011',
-  email: 'adi.frahoudi@innersky.co.il',
+  email: 'adi.farhoudi@innersky.co.il',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'נתניה',
