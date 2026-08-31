@@ -5,7 +5,15 @@ import { useLanguage } from '@/context/LanguageContext'
 import SectionBadge from '@/components/ui/SectionBadge'
 import Button from '@/components/ui/Button'
 
-const floatingIcons = ['flight', 'policy', 'bar_chart', 'handshake']
+// The globe sits in a 70% x 70% box centred in the container, so it spans 15%-85%.
+// These are the midpoints of its four edges; translate(-50%, -50%) centres each
+// icon on the edge itself.
+const floatingIcons = [
+  { icon: 'flight', top: '15%', left: '50%' },
+  { icon: 'policy', top: '50%', left: '85%' },
+  { icon: 'bar_chart', top: '85%', left: '50%' },
+  { icon: 'handshake', top: '50%', left: '15%' },
+]
 
 export default function Hero() {
   const { lang } = useLanguage()
@@ -72,15 +80,11 @@ export default function Hero() {
                 />
               </div>
 
-              {floatingIcons.map((icon, i) => (
+              {floatingIcons.map(({ icon, top, left }) => (
                 <span
                   key={icon}
                   className="material-symbols-outlined absolute text-electric glass-card rounded-full p-3"
-                  style={{
-                    top: `${[10, 50, 75, 25][i]}%`,
-                    left: `${[15, 0, 65, 80][i]}%`,
-                    fontSize: '28px',
-                  }}
+                  style={{ top, left, transform: 'translate(-50%, -50%)', fontSize: '28px' }}
                 >
                   {icon}
                 </span>
